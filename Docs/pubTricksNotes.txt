@@ -1,0 +1,52 @@
+PubTricks
+
+Goal:  Good looking live site to demo for .NET
+		Today (Monday)
+			Structure
+			Watch videos again
+			Build on the way
+			
+TDD!
+	Keep presentation notes
+
+	Web Platform Installer
+		Azure SDK1.5
+		
+
+Elevator Speech
+	"Pubtricks is where simply remembered and awesome pub tricks are captured on video, and offered to our users"
+
+	go live:  Friday I want site up.
+		
+Platform
+	ASP.NET MVC3 (becuase I know this toolstack)
+	Azure
+
+
+What do I need to do?
+	
+	
+c:\dev\PubTricks - easy to get to
+\Docs
+\Lib - all 3rd party binaries
+\Source
+
+File new project
+	PubTricks.Azure.. create a folder.. 
+	Add in PubTricks.Web as MVC3 role
+	
+Add to source control
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+issues with VidPub
+	insert not working properly... hacking massive a problem?
+		eg insert a new user doesn't insert password correctly.. wrong number of parameters
