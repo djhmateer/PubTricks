@@ -36,15 +36,56 @@ File new project
 	Add in PubTricks.Web as MVC3 role
 	
 Add to source control
+	git init
+	put in .gitIgnore file
+	git add .
+	git add -am "Load"
+	
+Add a dropbox backup
+	mkdir e:\dropbox\repositories\ptricks
+	git remote add origin e:/dropbox/repositories/ptricks
+	cd e:\dropbox\repositories\ptricks
+	git init --bare
+	git push origin master (from c:\dev\pubtricks)
+	
+	
+Task Runner project - console app.
+
+Rename Files
+	Public
+		Scripts to javascripts
+	
+fix links
+CDN's
+	
+Publish to Azure
+	Why Azure?  Why not.
+	
+Logging
+	setup NLog.config to output to app_data/logs/ file.
+	extract interface
+	
+IoC - Ninject
+
+Dependency Injection pattern - put logger in home controller
+
+	
 
 	
 	
 	
+Technologies used (in order)
+	www.tekpub.com - Real World ASP.NET MVC3
+	Unfuddle - project mgt
+	Dropbox
+	Azure1.5
+	MVC3
+	Git
+	NuGet
+	NLog - help to debug easily
 	
 	
-	
-	
-	
+	Azure Web deploy
 	
 	
 issues with VidPub

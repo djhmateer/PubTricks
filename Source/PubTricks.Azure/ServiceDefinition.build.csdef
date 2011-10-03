@@ -9,7 +9,7 @@
   **********************************************************************************************
 -->
 <ServiceDefinition name="PubTricks.Azure" xmlns="http://schemas.microsoft.com/ServiceHosting/2008/10/ServiceDefinition">
-  <WebRole name="PubTricks.Web" vmsize="Small">
+  <WebRole name="PubTricks.Web" vmsize="ExtraSmall">
     <Sites>
       <Site name="Web">
         <Bindings>
@@ -22,6 +22,8 @@
     </Endpoints>
     <Imports>
       <Import moduleName="Diagnostics" />
+      <Import moduleName="RemoteAccess" />
+      <Import moduleName="RemoteForwarder" />
     </Imports>
   </WebRole>
 </ServiceDefinition>
