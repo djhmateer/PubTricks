@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using NUnit.Framework;
 
 namespace PubTricks.Tests {
-    public class Class1 {
+    [TestFixture]
+    public class blah {
+
     }
 }

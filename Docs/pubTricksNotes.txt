@@ -69,7 +69,22 @@ IoC - Ninject
 
 Dependency Injection pattern - put logger in home controller
 
-	
+Membership
+
+TDD/BDD
+
+Nunit
+
+TestDriven.NET
+
+CodeSnippets Manager
+
+GIT 
+	IDE link
+	feature branch
+	  git branch
+	  git checkout -b membership
+
 
 	
 	
@@ -83,6 +98,7 @@ Technologies used (in order)
 	Git
 	NuGet
 	NLog - help to debug easily
+	Ninject - keep things decoupled and easy.
 	
 	
 	Azure Web deploy
