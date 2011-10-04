@@ -105,9 +105,11 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Infrastructure\ILogger.cs" />
-    <Compile Include="Infrastructure\NLogger.cs" />
+    <Compile Include="Infrastructure\Logger\ILogger.cs" />
+    <Compile Include="Infrastructure\Logger\NLogger.cs" />
+    <Compile Include="Infrastructure\Massive.cs" />
     <Compile Include="Models\AccountModel.cs" />
+    <Compile Include="Models\Trick.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WebRole.cs" />
   </ItemGroup>
@@ -123,12 +125,15 @@
     <Content Include="Public\javascripts\jquery.validate.min.js" />
     <Content Include="Public\javascripts\modernizr-1.7.js" />
     <Content Include="Public\javascripts\modernizr-1.7.min.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="Public\stylesheets\Site.css" />
     <Content Include="Public\javascripts\jquery.unobtrusive-ajax.js" />

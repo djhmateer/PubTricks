@@ -1,5 +1,6 @@
 ﻿@if(Request.IsAuthenticated) {
-    <text>Welcome <strong>@User.Identity.Name</strong>!
+    <text>Welcome <strong>@User.Identity.Name</strong>
+     @(User.IsInRole("Administrator") ? "(Administrator)" : String.Empty) 
     [ @Html.ActionLink("Log Off", "LogOff", "Account") ]</text>
 }
 else {

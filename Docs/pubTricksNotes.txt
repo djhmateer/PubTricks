@@ -76,6 +76,7 @@ TDD/BDD
 Nunit
 
 TestDriven.NET
+	Alt T, and Alt D
 
 CodeSnippets Manager
 
@@ -87,7 +88,84 @@ GIT
 
 
 	
+First Test - a_new_trick_should_be_saved_to_db_on_save()
 	
+SQL Server
+Tricks
+	ID
+	Name
+	Description
+	VideoURL
+	DateCreated
+	  
+Get writing to db working using Massive
+	  
+Clear database before every test 
+	setup
+	  
+getting logging working on the test projects
+		directory isn't quite right.. 
+
+		
+Membership was a bit harder than it should be.
+		
+----
+Design - Video 3
+
+	3 themese for USD70
+		biznizz
+		inspire
+		Apz
+		
+
+Elevator Speech
+	"Pubtricks is where simply remembered and awesome pub tricks are captured on video, and offered to our users"
+	
+Website Front End User Stories:
+	As a person going to the pub, I want an easy trick to remember so that I can entertain my friends
+	
+	As a returning user of the site I want to see if there are any new videos
+	
+	As a person going to the pub I want to see what is the highest rated trick 
+	
+	
+	As a parent going to the pub with children, I want a kid friendly trick so I can keep them happy, and they can show their friends
+	
+	As a random browser of the site I want to understand immediately what the site is for
+	
+	As a smartphone user in the pub, I want to be able to check out tricks on video so I can be awesome in front of friends
+	
+
+Development User Stories
+	As a presenter I want a polished front end site that has wow factor
+	
+	As a business apps developer I want a good back end including crud, validation and testing, so I can reuse learning
+
+	
+Other Sites
+	youtube.com
+	
+	
+Front End Features:
+	Had a feedback tab thing
+	
+	Email me when anohter trick is published
+	
+	Newsletter
+
+	Ability to upload pub tricks
+	
+Back End Features
+	easily crud tricks
+	easily manage whole system
+
+	
+http://www.woothemes.com/2011/08/swatch/   - free one
+
+	
+	
+
+
 	
 Technologies used (in order)
 	www.tekpub.com - Real World ASP.NET MVC3
@@ -99,10 +177,13 @@ Technologies used (in order)
 	NuGet
 	NLog - help to debug easily
 	Ninject - keep things decoupled and easy.
-	
-	
 	Azure Web deploy
+	ASP.NET Membership
 	
+	
+	
+CodeSmells
+	FakeLogger - use DI
 	
 issues with VidPub
 	insert not working properly... hacking massive a problem?
