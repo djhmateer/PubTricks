@@ -162,10 +162,64 @@ Back End Features
 	
 http://www.woothemes.com/2011/08/swatch/   - free one
 
-	
+Bought a theme
+	made in Wordpress
+	got it working 
+	copied html
+	refactored css and js
+	got it rendering
 	
 
+making theme into what I want layout to be like and refactoring to make simpler
 
+/
+	latest
+	mostPopular
+
+/category/comedy
+/category/kids
+
+/category/all
+	
+/trick/uncross-your-arms
+/trick/the-kids-pen-trick
+
+
+helpers and functions - great and easy
+	getting a compile error when put on Azure
+		[didn't work]try redploy whole thing
+		[yes]works locally in Azure
+		[yes]works on Azure when I comment out
+		[no]try rename helper method to QuotesHelper
+		look for other helpers
+		@helper UserHelper(string quote) {
+			<div class="quote">
+				@*@Scrub(quote)*@
+				@quote
+			</div>    
+		}\
+		[properties tag wasn't set to output as content]
+	
+**site to Phil - up to date?
+**site off to Keith for front end feedback
+
+--------
+Data - Video 4
+
+Baby steps to get things right.	
+	
+A user views a Trick video and reveal video 
+A Trick can be in a Category
+	
+
+Write tests to help guide thinking
+
+Then share with team and get feedback
+
+
+
+	
+	
 	
 Technologies used (in order)
 	www.tekpub.com - Real World ASP.NET MVC3

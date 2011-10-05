@@ -1,8 +1,238 @@
 ﻿@{
-    ViewBag.Title = "Home Page";
+    Page.Title = "PubTricks";
 }
+<script type="text/javascript">
+    jQuery(document).ready(function () {
+        jQuery("#slides").slides({
+            preload: true,
+            preloadImage: '/public/stylesheets/images/loading.gif',
+            autoHeight: true,
+            effect: 'slide',
+            hoverPause: true,
+            //delete this line to make not autostart slides
+            //play: 4000, 
+            slideSpeed: 800,
+            crossfade: true,
+            generateNextPrev: true,
+            generatePagination: true,
+            slidesLoaded: function () { jQuery('#slides .slides_control').css('height', jQuery('#slides .slides_control .slide:first').height()); }
+        });
+    });
+</script>
 
-<h2>@ViewBag.Message</h2>
-<p>
-    To learn more about ASP.NET MVC visit <a href="http://asp.net/mvc" title="ASP.NET MVC Website">http://asp.net/mvc</a>.
-</p>
+@Assets.Script("jquery.cycle.all.js")
+<script>
+    $(document).ready(function () {
+        $("#textwidget").cycle({ fx: 'fade', pause: 1, speed: 900, timeout: 4000 })
+    });
+</script>
+
+<div id="slides">
+    <div class="slides_container" style="display: none;">
+        <div class="slide ">
+            <div class="image">
+                <div class="video">
+                    <object style="height: 390px; width: 640px">
+                        <param name="movie" value="http://www.youtube.com/v/2_3BJq5srL4?version=3">
+                        <param name="allowFullScreen" value="true">
+                        <param name="allowScriptAccess" value="always">
+                        <param name="wmode" value="transparent"></param>
+                        <embed wmode="transparent" src="http://www.youtube.com/v/2_3BJq5srL4?version=3" type="application/x-shockwave-flash"
+                            allowfullscreen="true" allowscriptaccess="always" width="760" height="427"></object></div>
+            </div>
+        </div>
+        <div class="slide ">
+            <div class="image">
+                <div class="video">
+                    <object style="height: 390px; width: 640px">
+                        <param name="movie" value="http://www.youtube.com/v/OQXZXat-RPQ?version=3">
+                        <param name="allowFullScreen" value="true">
+                        <param name="allowScriptAccess" value="always">
+                        <param name="wmode" value="transparent"></param>
+                        <embed wmode="transparent" src="http://www.youtube.com/v/OQXZXat-RPQ?version=3" type="application/x-shockwave-flash"
+                            allowfullscreen="true" allowscriptaccess="always" width="760" height="427"></object></div>
+            </div>
+        </div>
+        <div class="slide ">
+            <div class="image">
+                <div class="video">
+                    <object style="height: 390px; width: 640px">
+                        <param name="movie" value="http://www.youtube.com/v/NsXyrPN-eNo?version=3" />
+                        <param name="allowFullScreen" value="true">
+                        <param name="allowScriptAccess" value="always">
+                        <param name="wmode" value="transparent"></param>
+                        <embed wmode="transparent" src="http://www.youtube.com/v/NsXyrPN-eNo?version=3" type="application/x-shockwave-flash"
+                            allowfullscreen="true" allowscriptaccess="always" width="760" height="427"></object></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="content-wrap">
+    <div id="tabs-home" class="col-full">
+        <ul class="wooTabs">
+            <li class="latest"><a href="#home-tab-latest">Latest Videos</a></li>
+            <li class="popular"><a href="#home-tab-pop">Most Popular</a></li>
+            <li class="tags"><a href="#home-tab-tags">Kids</a></li>
+            <li class="tags"><a href="#home-tab-tags">Comedy</a></li>
+        </ul>
+        <div class="clear">
+        </div>
+        <div class="boxes box inside">
+            <!--latest videos-->
+            <div id="home-tab-latest" class="list">
+                <div class="post block">
+                    <div class="tab-image-block">
+                        <a href="/video/uncross-your-arms" title="Uncross Your Arms">
+                            <img src="/public/images/UncrossArms-100x100.png" alt="Uncross Your Arms" class="woo-image thumbnail" /></a>
+                    </div>
+                    <h2 class="title">
+                        <a href="/video/uncross-your-arms" rel="bookmark" title="Uncross Your Arms">Uncross
+                            Your Arms</a></h2>
+                    <span class="date">October 4, 2011</span>
+                </div>
+                <div class="post block">
+                    <div class="tab-image-block">
+                        <a href="/video/kids-pen-trick" title="The Kids Pen Trick">
+                            <img src="/public/images/PenTrickImage-100x100.png" alt="The Kids Pen Trick" class="woo-image thumbnail" /></a>
+                    </div>
+                    <h2 class="title">
+                        <a href="/video/kids-pen-trick" rel="bookmark" title="The Kids Pen Trick">The Kids Pen
+                            Trick</a></h2>
+                    <span class="date">October 4, 2011</span>
+                </div>
+                <div class="fix">
+                </div>
+                <div class="clear">
+                </div>
+            </div>
+            <!--most popular-->
+            <div id="home-tab-pop" class="list">
+                <div class="post block">
+                    <div class="tab-image-block">
+                        <a href="/video/uncross-your-arms" title="Uncross Your Arms">
+                            <img src="/public/images/UncrossArms-100x100.png" alt="Uncross Your Arms" class="woo-image thumbnail" /></a>
+                    </div>
+                    <h2 class="title">
+                        <a href="/video/uncross-your-arms" rel="bookmark" title="Uncross Your Arms">Uncross
+                            Your Arms</a></h2>
+                    <span class="date">October 4, 2011</span>
+                </div>
+                <div class="post block">
+                    <div class="tab-image-block">
+                        <a href="/video/kids-pen-trick" title="The Kids Pen Trick">
+                            <img src="/public/images/PenTrickImage-100x100.png" alt="The Kids Pen Trick" class="woo-image thumbnail" /></a>
+                    </div>
+                    <h2 class="title">
+                        <a href="/video/kids-pen-trick" rel="bookmark" title="The Kids Pen Trick">The Kids Pen
+                            Trick</a></h2>
+                    <span class="date">October 4, 2011</span>
+                </div>
+                <div class="clear">
+                </div>
+            </div>
+            <!--popular kewords -->
+            <div id="home-tab-tags" class="list">
+                <a href='/tag/arms' class='tag-link-9' title='1 topic' style='font-size: 12pt;'>arms</a>
+                <a href='/tag/pen1' class='tag-link-7' title='1 topic' style='font-size: 12pt;'>pen1</a>
+                <a href='/tag/short' class='tag-link-8' title='1 topic' style='font-size: 12pt;'>short</a>
+            </div>
+            <!--end of tags-->
+        </div>
+        <!--end of boxes -->
+    </div>
+    <!--end wooTabs -->
+</div>
+<!--end content-->
+<script type="text/javascript">
+    jQuery(document).ready(function () {
+        // UL = .wooTabs
+        // Tab contents = .inside
+
+        var tag_cloud_class = '#tagcloud';
+
+        //Fix for tag clouds - unexpected height before .hide() 
+        var tag_cloud_height = jQuery('#tagcloud').height();
+
+        jQuery('.inside ul li:last-child').css('border-bottom', '0px'); // remove last border-bottom from list in tab content
+        jQuery('.wooTabs').each(function () {
+            jQuery(this).children('li').children('a:first').addClass('selected'); // Add .selected class to first tab on load
+        });
+        jQuery('.inside > *').hide();
+        jQuery('.inside > *:first-child').show();
+
+        jQuery('.wooTabs li a').click(function (evt) { // Init Click funtion on Tabs
+
+            var clicked_tab_ref = jQuery(this).attr('href'); // Strore Href value
+
+            jQuery(this).parent().parent().children('li').children('a').removeClass('selected'); //Remove selected from all tabs
+            jQuery(this).addClass('selected');
+            jQuery(this).parent().parent().parent().children('.inside').children('*').hide();
+
+            jQuery('.inside ' + clicked_tab_ref).fadeIn(500);
+
+            evt.preventDefault();
+
+        })
+    })
+
+</script>
+<div id="footer-widgets" class="col-full col-4">
+    <div id="footer-wrapper">
+        <div class="block footer-widget-1">
+            <div id="recent-posts-3" class="widget widget_recent_entries">
+                <h3>
+                    Recent awesome posts</h3>
+                <ul>
+                    <li><a href="http://localhost:35436/?p=1" title="Hello world!">Hello world!</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="block footer-widget-2">
+            <div id="woo_subscribe-3" class="widget widget_woo_subscribe">
+                <div id="connect">
+                    <h3 class="title">
+                        Subscribe</h3>
+                    <div>
+                        <p>
+                            Subscribe to our e-mail newsletter to receive updates.</p>
+                        <div class="social">
+                            <a href="http://localhost:35436/?feed=rss2" class="subscribe">
+                                <img src="/public/stylesheets/images/ico-social-rss.png" title="Subscribe to our RSS feed"
+                                    alt="" /></a>
+                        </div>
+                    </div>
+                    <!-- col-left -->
+                    <div class="fix">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="block footer-widget-3">
+            <div id="tag_cloud-3" class="widget widget_tag_cloud">
+                <h3>
+                    Stuff</h3>
+                <div class="tagcloud">
+                    <a href='http://localhost:35436/?tag=arms' class='tag-link-9' title='1 topic' style='font-size: 8pt;'>
+                        arms</a> <a href='http://localhost:35436/?tag=pen1' class='tag-link-7' title='1 topic'
+                            style='font-size: 8pt;'>pen1</a> <a href='http://localhost:35436/?tag=short' class='tag-link-8'
+                                title='1 topic' style='font-size: 8pt;'>short</a></div>
+            </div>
+        </div>
+        <div class="block footer-widget-4">
+            <div id="text-3" class="widget widget_text">
+                <h3>Quotes</h3>
+                <div id="textwidget">
+                    @foreach (dynamic item in PubTricks.Web.Models.Quotes.FromUsers()) {
+                        @Quotes.User(item)
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="fix">
+        </div>
+    </div>
+    <!-- #wrapper -->
+</div>
+@*<div class="container">
+   
+</div>*@ 

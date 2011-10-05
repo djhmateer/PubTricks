@@ -99,6 +99,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Code\Quotes.cshtml" />
     <Compile Include="App_Start\NinjectMVC3.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -109,22 +110,100 @@
     <Compile Include="Infrastructure\Logger\NLogger.cs" />
     <Compile Include="Infrastructure\Massive.cs" />
     <Compile Include="Models\AccountModel.cs" />
+    <Compile Include="Models\Quotes.cs" />
     <Compile Include="Models\Trick.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WebRole.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
-    <Content Include="Public\javascripts\jquery-1.5.1-vsdoc.js" />
-    <Content Include="Public\javascripts\jquery-1.5.1.js" />
-    <Content Include="Public\javascripts\jquery-1.5.1.min.js" />
-    <Content Include="Public\javascripts\jquery-ui-1.8.11.js" />
-    <Content Include="Public\javascripts\jquery-ui-1.8.11.min.js" />
-    <Content Include="Public\javascripts\jquery.validate-vsdoc.js" />
-    <Content Include="Public\javascripts\jquery.validate.js" />
+    <Content Include="Public\images\btn-search.png" />
+    <Content Include="Public\images\logoPubTricks.png" />
+    <Content Include="Public\images\PenTrickImage-100x100.png" />
+    <Content Include="Public\images\UncrossArms-100x100.png" />
+    <Content Include="Public\images\woothemes-74x18.png" />
+    <Content Include="Public\javascripts\jquery.cycle.all.js" />
     <Content Include="Public\javascripts\jquery.validate.min.js" />
     <Content Include="Public\javascripts\modernizr-1.7.js" />
     <Content Include="Public\javascripts\modernizr-1.7.min.js" />
+    <Content Include="Public\stylesheets\custom.css" />
+    <Content Include="Public\stylesheets\images\ajax-loader.gif" />
+    <Content Include="Public\stylesheets\images\alert-overlay.png" />
+    <Content Include="Public\stylesheets\images\arrow-superfish-right.png" />
+    <Content Include="Public\stylesheets\images\arrow-superfish.png" />
+    <Content Include="Public\stylesheets\images\bg-bubbletip-footer.png" />
+    <Content Include="Public\stylesheets\images\bg-bubbletip.png" />
+    <Content Include="Public\stylesheets\images\bg-comment-label.png" />
+    <Content Include="Public\stylesheets\images\bg-content-left-sidebar.png" />
+    <Content Include="Public\stylesheets\images\bg-content-wrap.png" />
+    <Content Include="Public\stylesheets\images\bg-content.png" />
+    <Content Include="Public\stylesheets\images\bg-footer.png" />
+    <Content Include="Public\stylesheets\images\bg-header.png" />
+    <Content Include="Public\stylesheets\images\bg-home.jpg" />
+    <Content Include="Public\stylesheets\images\bg-ie-transparency.png" />
+    <Content Include="Public\stylesheets\images\bg-nav.png" />
+    <Content Include="Public\stylesheets\images\bg-page.jpg" />
+    <Content Include="Public\stylesheets\images\bg-search.png" />
+    <Content Include="Public\stylesheets\images\bg-sidebar.png" />
+    <Content Include="Public\stylesheets\images\bg-top.png" />
+    <Content Include="Public\stylesheets\images\bg-video.png" />
+    <Content Include="Public\stylesheets\images\bg.png" />
+    <Content Include="Public\stylesheets\images\blockquote.png" />
+    <Content Include="Public\stylesheets\images\btn-search.png" />
+    <Content Include="Public\stylesheets\images\btn-share-gradient.png" />
+    <Content Include="Public\stylesheets\images\btn-slider-next.png" />
+    <Content Include="Public\stylesheets\images\btn-slider-pagi-active.png" />
+    <Content Include="Public\stylesheets\images\btn-slider-pagi.png" />
+    <Content Include="Public\stylesheets\images\btn-slider-prev.png" />
+    <Content Include="Public\stylesheets\images\btn-videowidget-pagi-active-footer.png" />
+    <Content Include="Public\stylesheets\images\btn-videowidget-pagi-active.png" />
+    <Content Include="Public\stylesheets\images\btn-videowidget-pagi-footer.png" />
+    <Content Include="Public\stylesheets\images\btn-videowidget-pagi.png" />
+    <Content Include="Public\stylesheets\images\hr-sidebar.png" />
+    <Content Include="Public\stylesheets\images\hr-video.png" />
+    <Content Include="Public\stylesheets\images\hr.png" />
+    <Content Include="Public\stylesheets\images\ico-alert.png" />
+    <Content Include="Public\stylesheets\images\ico-download.png" />
+    <Content Include="Public\stylesheets\images\ico-info.png" />
+    <Content Include="Public\stylesheets\images\ico-note.png" />
+    <Content Include="Public\stylesheets\images\ico-quotes.png" />
+    <Content Include="Public\stylesheets\images\ico-rss.png" />
+    <Content Include="Public\stylesheets\images\ico-search.png" />
+    <Content Include="Public\stylesheets\images\ico-share-facebook.png" />
+    <Content Include="Public\stylesheets\images\ico-share-like.png" />
+    <Content Include="Public\stylesheets\images\ico-share-mail.png" />
+    <Content Include="Public\stylesheets\images\ico-share-twitter.png" />
+    <Content Include="Public\stylesheets\images\ico-slider-close.png" />
+    <Content Include="Public\stylesheets\images\ico-social-delicious.png" />
+    <Content Include="Public\stylesheets\images\ico-social-facebook.png" />
+    <Content Include="Public\stylesheets\images\ico-social-flickr.png" />
+    <Content Include="Public\stylesheets\images\ico-social-googleplus.png" />
+    <Content Include="Public\stylesheets\images\ico-social-linkedin.png" />
+    <Content Include="Public\stylesheets\images\ico-social-rss.png" />
+    <Content Include="Public\stylesheets\images\ico-social-twitter.png" />
+    <Content Include="Public\stylesheets\images\ico-social-youtube.png" />
+    <Content Include="Public\stylesheets\images\ico-tag.gif" />
+    <Content Include="Public\stylesheets\images\ico-tick.png" />
+    <Content Include="Public\stylesheets\images\icon-32.png" />
+    <Content Include="Public\stylesheets\images\li-arrow.png" />
+    <Content Include="Public\stylesheets\images\li-breadcrumbs-video.png" />
+    <Content Include="Public\stylesheets\images\li-breadcrumbs.png" />
+    <Content Include="Public\stylesheets\images\li-tabs.png" />
+    <Content Include="Public\stylesheets\images\loading.gif" />
+    <Content Include="Public\stylesheets\images\logo.png" />
+    <Content Include="Public\stylesheets\images\logoPubTricks.png" />
+    <Content Include="Public\stylesheets\images\prev.png" />
+    <Content Include="Public\stylesheets\images\temp-slider.jpg" />
+    <Content Include="Public\stylesheets\images\twitter.png" />
+    <Content Include="Public\images\woothemes.png" />
+    <Content Include="Public\stylesheets\shortcodes.css" />
+    <Content Include="Public\javascripts\shortcodes.js" />
+    <Content Include="Public\javascripts\general.js" />
+    <Content Include="Public\javascripts\menu.js" />
+    <Content Include="Public\javascripts\slides.min.jquery.js" />
+    <Content Include="Public\javascripts\superfish.js" />
+    <Content Include="Public\stylesheets\style.css" />
+    <Content Include="Public\stylesheets\default.css" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -135,17 +214,7 @@
       <DependentUpon>Web.config</DependentUpon>
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Public\stylesheets\Site.css" />
-    <Content Include="Public\javascripts\jquery.unobtrusive-ajax.js" />
-    <Content Include="Public\javascripts\jquery.unobtrusive-ajax.min.js" />
-    <Content Include="Public\javascripts\jquery.validate.unobtrusive.js" />
     <Content Include="Public\javascripts\jquery.validate.unobtrusive.min.js" />
-    <Content Include="Public\javascripts\MicrosoftAjax.js" />
-    <Content Include="Public\javascripts\MicrosoftAjax.debug.js" />
-    <Content Include="Public\javascripts\MicrosoftMvcAjax.js" />
-    <Content Include="Public\javascripts\MicrosoftMvcAjax.debug.js" />
-    <Content Include="Public\javascripts\MicrosoftMvcValidation.js" />
-    <Content Include="Public\javascripts\MicrosoftMvcValidation.debug.js" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Account\ChangePassword.cshtml" />
     <Content Include="Views\Account\ChangePasswordSuccess.cshtml" />
@@ -166,7 +235,11 @@
     <Content Include="NLog.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Code\Assets.cshtml" />
+    <Content Include="App_Code\URL.cshtml" />
+    <Content Include="App_Code\Snippets.cshtml" />
     <None Include="App_Data\logs\site.log" />
+    <None Include="Public\stylesheets\images\logoPubTricks.pdn" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

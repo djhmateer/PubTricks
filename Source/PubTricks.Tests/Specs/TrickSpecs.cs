@@ -22,6 +22,43 @@ namespace PubTricks.Tests.Specs {
         }
 
         [Test]
+        public void a_user_should_be_able_to_view_5_most_popular_tricks_in_video_slider() {
+            this.IsPending();
+        }
+
+        [Test]
+        public void a_user_should_be_able_to_view_10_most_recently_added_tricks_in_latest_videos_tab() {
+            this.IsPending();
+        }
+
+        [Test]
+        public void a_user_should_be_able_to_view_10_most_popular_tricks_in_most_popular_tab() {
+            this.IsPending();
+        }
+
+        [Test]
+        public void a_user_should_be_able_to_like_a_video() {
+            this.IsPending();
+        }
+
+        [Test]
+        public void a_user_should_be_able_to_like_a_video_only_once() {
+            this.IsPending();
+        }
+
+        [Test]
+        public void an_admin_should_be_able_to_add_a_trick() {
+            this.IsPending();
+        }
+
+        [Test]
+        public void an_admin_should_be_able_to_add_a_trick_to_an_existing_category() {
+            this.IsPending();
+        }
+
+
+
+        [Test]
         public void a_new_trick_should_be_saved_to_db_on_add_trick() {
             Trick trick = new Trick();
             string name = "test name";
