@@ -1,0 +1,40 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>@Page.Title</title>
+
+    @Assets.jQuery(true)
+    
+    <script type="text/javascript" src="http://use.typekit.com/yxo3unq.js"></script>
+    
+    @Assets.CSS("site.css")
+    @Assets.CSS("screen.css")
+    @Assets.CSS("print.css")
+    @Assets.Script("jquery.cycle.all.js")
+
+    <!--[if lt IE 8]><link rel="stylesheet" href="../../blueprint/ie.css" type="text/css" media="screen, projection"><![endif]-->
+</head>
+<body>
+    <div id='logo'>
+        @Assets.ImageLink(URL.SiteRoot(), "logoPubTricks.png")
+    </div>
+  
+    @RenderBody()
+
+    @*<div class="container">
+        <div class = "column">
+            @RenderSection("instructions")
+        </div>
+    </div>*@
+
+    <hr>
+    <div class = "container">
+        <p> 
+            @Snippets.FooterText()
+        </p>     
+    </div>
+</body>
+
+<script type="text/javascript">    try { Typekit.load(); } catch (e) { }</script>
+</html>

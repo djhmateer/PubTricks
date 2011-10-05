@@ -1,0 +1,24 @@
+﻿@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<h2>Create</h2>
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <legend>Production</legend>
+        @Form.TextBoxRequired("Name", @Model.Name)
+        @Form.TextArea("Description", value: Model.Description)
+        @Form.TextBoxNumber("VideoURL", @Model.VideoURL)
+        @Form.TextBoxDate("DateCreated", @Model.DateCreated)
+        @Form.TextBoxNumber("Likes", @Model.Votes, "Should be a number")
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+}
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

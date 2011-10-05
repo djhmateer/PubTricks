@@ -1,0 +1,61 @@
+﻿@helper Scripts(){
+    @Assets.Script("jquery.validate.min.js")
+    @Assets.Script("jquery.validate.unobtrusive.min.js")
+}
+
+@helper ValidationMessage(string name) {
+    <span class="field-validation-valid" data-valmsg-for="@name" data-valmsg-replace="true"></span>
+}
+
+@helper TextBox(string name, object value = null) {
+    //if value is null, set to empty string
+    var val = value ?? "";
+    <p>
+        <label>@name</label>
+        <input type="text" name="@name" id="@name" value="@val" />
+    </p>
+}
+
+@helper TextBoxDate(string name, object value = null) {
+    //if value is null, set to empty string
+    var val = value ?? "";
+    //chop time off string if there
+    string dateString = val.ToString().Trim();
+    string[] dateStringBits = dateString.Split(' ');
+    string datePart = dateStringBits[0];
+    
+    <p>
+        <label>@name</label>
+        <input type="text" name="@name" id="@name" value="@datePart" />
+    </p>
+}
+
+@helper TextBoxRequired(string name, object value = null, string requiredMessage = "Required") {
+    var val = value ?? "";
+     //using HTML5 and jQuery validations
+    <p>
+        <label>@name *</label>
+        <input type="text" name="@name" id="@name" value="@val" data-val="true" data-val-required="@requiredMessage" />
+        @ValidationMessage(name)
+    </p>
+}
+
+@helper TextBoxNumber(string name, object value = null, string numberMessage = "Should be a number") {
+    var val = value ?? "";
+            //using HTML5 and jQuery validations
+    <p>
+        <label>@name *</label>
+        <input type="text" name="@name" id="@name" value="@val" data-val="true" data-val-number="@numberMessage" />
+        @ValidationMessage(name)
+    </p>
+}
+
+@helper TextArea(string name, string attributes = "", object value = null) {
+    var val = value ?? "";
+    <p>
+        <label>@name</label>
+        @*<textarea name="@name" id="@name" @attributes >@val</textarea>*@
+        <textarea name="@name" id="@name">@val</textarea>
+
+    </p>
+}

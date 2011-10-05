@@ -52,7 +52,22 @@ namespace PubTricks.Tests.Specs {
         }
 
         [Test]
-        public void an_admin_should_be_able_to_add_a_trick_to_an_existing_category() {
+        public void an_admin_should_be_able_to_add_a_category_to_a_trick() {
+            this.IsPending();
+        }
+
+        [Test]
+        public void an_admin_should_be_able_to_add_2_categories_to_a_trick() {
+            this.IsPending();
+        }
+
+        [Test]
+        public void an_admin_should_be_able_to_delete_a_category_from_a_trick() {
+            this.IsPending();
+        }
+
+        [Test]
+        public void an_admin_should_be_able_to_delete_all_categories_from_a_trick() {
             this.IsPending();
         }
 
@@ -60,7 +75,7 @@ namespace PubTricks.Tests.Specs {
 
         [Test]
         public void a_new_trick_should_be_saved_to_db_on_add_trick() {
-            Trick trick = new Trick();
+            Tricks trick = new Tricks();
             string name = "test name";
             var result = trick.AddTrick(name, "test desc", "test url");
             Assert.AreEqual(1, _tbl.All().Count());
@@ -68,7 +83,7 @@ namespace PubTricks.Tests.Specs {
 
         [Test]
         public void a_new_trick_should_be_saved_to_db_on_add_trick_and_correct_result_returned() {
-            Trick trick = new Trick();
+            Tricks trick = new Tricks();
             string name = "test name b";
             var result = trick.AddTrick(name, "test desc", "test url");
             var trickFromDB = _tbl.All(where: "WHERE Name=@0", args: name);
@@ -77,7 +92,7 @@ namespace PubTricks.Tests.Specs {
 
         [Test]
         public void duplicate_name_of_new_trick_should_fail_to_save() {
-            Trick trick = new Trick();
+            Tricks trick = new Tricks();
             var result = trick.AddTrick("test name", "test desc", "test url");
             var result2 = trick.AddTrick("test name", "test desc2", "test url2");
             Assert.IsFalse(result2.Success, "Result success should be false");
@@ -86,7 +101,7 @@ namespace PubTricks.Tests.Specs {
 
         [Test]
         public void duplicate_videourl_of_new_trick_should_fail_to_save() {
-            Trick trick = new Trick();
+            Tricks trick = new Tricks();
             var result = trick.AddTrick("test name", "test desc", "test url");
             var result2 = trick.AddTrick("test name2", "test desc2", "test url");
             Assert.IsFalse(result2.Success, "Result success should be false");
@@ -95,7 +110,7 @@ namespace PubTricks.Tests.Specs {
 
         [Test]
         public void description_should_be_more_than_5_chars_long() {
-            Trick trick = new Trick();
+            Tricks trick = new Tricks();
             string name = "test name";
             var result = trick.AddTrick(name, "test", "test url");
             Assert.IsFalse(result.Success, "Result success should be false");

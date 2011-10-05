@@ -1,22 +1,22 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Massive;
 using System.Dynamic;
+using System.Linq;
+using Massive;
 
 namespace PubTricks.Web.Models {
-    public class Trick {
+    public class Tricks : DynamicModel {
         DynamicModel _tbl;
 
-        public Trick() {
-            _tbl = new DynamicModel("PubTricks", "Tricks", "ID");
+        public Tricks() : base("PubTricks", "Tricks", "ID") {
         }
+        //public Tricks() {
+        //    _tbl = new DynamicModel("PubTricks", "Tricks", "ID");
+        //}
 
         public dynamic AddTrick(string name, string description, string videourl) {
             dynamic result = new ExpandoObject();
             result.Success = true;
-            //name of a trick is in the db already
+            //is name of a trick is in the db already?
             var trickFromDB = _tbl.All(where: "WHERE Name=@0", args: name);
             if (trickFromDB.Count() > 0) {
                 result.Message = "Duplicate names of tricks not allowed";
@@ -24,7 +24,7 @@ namespace PubTricks.Web.Models {
                 return result;
             }
 
-            //url in db already
+            //is url in db already?
             trickFromDB = _tbl.All(where: "WHERE VideoURL=@0", args: videourl);
             if (trickFromDB.Count() > 0) {
                 result.Message = "Duplicate VideoURL of tricks not allowed";
@@ -32,6 +32,7 @@ namespace PubTricks.Web.Models {
                 return result;
             }
 
+            //is description long enough?
             if (description.Length <= 5) {
                 result.Message = "Need more than 5 characters in the description";
                 result.Success = false;

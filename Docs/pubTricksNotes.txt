@@ -200,6 +200,9 @@ helpers and functions - great and easy
 		}\
 		[properties tag wasn't set to output as content]
 	
+
+**Keith - how does he remember likes?	
+	
 **site to Phil - up to date?
 **site off to Keith for front end feedback
 
@@ -213,14 +216,45 @@ A Trick can be in a Category
 	
 
 Write tests to help guide thinking
+	**this is really good**
 
 Then share with team and get feedback
 
 
+ORM
+	EF
+		Guids as PK's.... Rob doesn't like
+	MVC Scaffolding
+	Massive
+	
 
+Controlers - RESTfully
+
+Developing up /tricks controller
+	Doing it manually
+	
+	Templates changing
+
+Using own html helper methods
 	
 	
+**HERE 40mins into number 4 video
+**look on programgood.net to see if this is explained well (this stage)
+then go to Cruddy controller
+
+validation thoughts
+
+front end wire in
+like functionality
+
+authentication wire in for admin
+
+build out test cases and look for edge cases 
+get lots of content on the site!	
+
+contact page.
 	
+-------
 Technologies used (in order)
 	www.tekpub.com - Real World ASP.NET MVC3
 	Unfuddle - project mgt
@@ -233,7 +267,10 @@ Technologies used (in order)
 	Ninject - keep things decoupled and easy.
 	Azure Web deploy
 	ASP.NET Membership
-	
+	jQuery
+	jQuery cycle
+	Massive
+	MVC Code Templates (T4)
 	
 	
 CodeSmells
