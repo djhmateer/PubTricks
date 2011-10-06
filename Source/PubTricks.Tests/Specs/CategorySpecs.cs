@@ -31,9 +31,5 @@ namespace PubTricks.Tests.Specs {
         public void an_admin_should_be_able_to_delete_an_existing_category_only_when_there_are_no_tricks_associated_with_it() {
             this.IsPending();
         }
-
-
-        
-
     }
 }

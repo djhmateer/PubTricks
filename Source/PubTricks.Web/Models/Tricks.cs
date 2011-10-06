@@ -6,12 +6,11 @@ using Massive;
 namespace PubTricks.Web.Models {
     public class Tricks : DynamicModel {
         DynamicModel _tbl;
+        //dynamic _tbl;
 
         public Tricks() : base("PubTricks", "Tricks", "ID") {
+            _tbl = new DynamicModel("PubTricks", "Tricks", "ID");
         }
-        //public Tricks() {
-        //    _tbl = new DynamicModel("PubTricks", "Tricks", "ID");
-        //}
 
         public dynamic AddTrick(string name, string description, string videourl) {
             dynamic result = new ExpandoObject();

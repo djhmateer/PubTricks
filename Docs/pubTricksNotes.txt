@@ -253,6 +253,15 @@ build out test cases and look for edge cases
 get lots of content on the site!	
 
 contact page.
+---------------
+Massive
+
+getting into the heart of it and stripping it back
+
+get tests passing again
+	why is _tbl not newed up in my Trick model?
+
+build up Massive from the ground?
 	
 -------
 Technologies used (in order)

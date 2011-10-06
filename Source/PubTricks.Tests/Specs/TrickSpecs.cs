@@ -71,8 +71,6 @@ namespace PubTricks.Tests.Specs {
             this.IsPending();
         }
 
-
-
         [Test]
         public void a_new_trick_should_be_saved_to_db_on_add_trick() {
             Tricks trick = new Tricks();
