@@ -18,6 +18,7 @@ namespace PubTricks.Web {
                 "Default", // Route name
                 "{controller}/{action}/{id}", // URL with parameters
                 new { controller = "Home", action = "Index", id = UrlParameter.Optional } // Parameter defaults
+                //new { controller = "Tricks", action = "Index", id = UrlParameter.Optional } // Parameter defaults
             );
 
         }

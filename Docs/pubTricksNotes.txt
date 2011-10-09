@@ -202,7 +202,6 @@ helpers and functions - great and easy
 	
 
 **Keith - how does he remember likes?	
-	
 **site to Phil - up to date?
 **site off to Keith for front end feedback
 
@@ -238,10 +237,6 @@ Developing up /tricks controller
 Using own html helper methods
 	
 	
-**HERE 40mins into number 4 video
-**look on programgood.net to see if this is explained well (this stage)
-then go to Cruddy controller
-
 validation thoughts
 
 front end wire in
@@ -259,10 +254,68 @@ Massive
 getting into the heart of it and stripping it back
 
 get tests passing again
-	why is _tbl not newed up in my Trick model?
 
-build up Massive from the ground?
+build up Massive from the ground
+
+get controller working simply with no cruddy abstraction.
+
+Create
+	Votes in database isn't going through from create to db
+	Likes on screen, but @Model.Votes in view.
+	FormCollection is coming though as Likes
 	
+Create not working in VidPub original
+	download again.
+	not working in downloaded version
+
+----
+See what Rob has to say in Video5
+	
+unobtrusive validation
+
+authentication on controller
+
+
+make front end pull from database tricks table
+	simple razor syntax
+
+why js?  Write less server code, and write a more compelling and responsive application.
+
+jquery templates to help display on the frontend?
+	
+make an ApplicationController to handle auth?
+
+--------------
+TODO - Monday
+[doing]CName
+
+1. details page
+		/tricks/2   - goes to a trick with ID of 2
+		/tricks/pen-trick  - goes to a trick with ID of 2 (with magic happening - this is the name of the trick)
+		
+		/tricks - shows all tricks
+		/category/kids - shows all tricks in the category kids
+		
+		
+		
+		/admin/trick/edit/2
+		/admin/category/edit/5 - Kids category edit 
+		
+		
+		
+		
+2. like functionality
+3. Text on slider bar, hyperlink in slider bar to details page.. good static images..styley....use own photos?
+
+categories?
+
+4. Admin BDD features
+5. Admin CSS strip out
+
+UserVoice for feedback.
+
+bring in Add/Edit roles
+
 -------
 Technologies used (in order)
 	www.tekpub.com - Real World ASP.NET MVC3
@@ -288,3 +341,10 @@ CodeSmells
 issues with VidPub
 	insert not working properly... hacking massive a problem?
 		eg insert a new user doesn't insert password correctly.. wrong number of parameters
+---------------
+Presentation Notes:
+	
+	Why not use Silverlight?
+	
+	
+	

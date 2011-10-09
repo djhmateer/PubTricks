@@ -1,15 +1,17 @@
 ﻿using System.Web.Mvc;
 using PubTricks.Web.Models;
+using System;
 
 namespace PubTricks.Web.Controllers
 {
     public class TricksController : Controller
     {
-        Tricks _tricksTable;
+        dynamic _tricksTable;
         public TricksController() {
             _tricksTable = new Tricks();
         }
 
+        [Authorize(Roles = "Administrator")]
         public ActionResult Index()
         {
             return View(_tricksTable.All());
@@ -17,8 +19,7 @@ namespace PubTricks.Web.Controllers
 
         public ActionResult Details(int id)
         {
-            //return View(_tricksTable.FindBy(IDependencyResolver: id, schema: true));
-            return View();
+            return View(_tricksTable.FindBy(ID: id, schema: true));
         }
 
         public ActionResult Create()
@@ -27,70 +28,65 @@ namespace PubTricks.Web.Controllers
         } 
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Create(FormCollection collection)
         {
-            dynamic item = _tricksTable.CreateFrom(collection);
+            var itemToCreate = _tricksTable.CreateFrom(collection);
             try
             {
-                _tricksTable.Insert(item);
+                _tricksTable.Insert(itemToCreate);
                 return RedirectToAction("Index");
             }
-            catch
+            catch (Exception ex)
             {
-                TempData["alert"] = "There was an error adding the trick";
-                return View();
+                TempData["Error"] = "There was an error adding the trick: "+ ex.Message;
+                return View(itemToCreate);
             }
         }
-        
-        //
-        // GET: /Tricks/Edit/5
- 
+
+        [Authorize(Roles = "Administrator")]
         public ActionResult Edit(int id)
         {
-            return View();
+            var model = _tricksTable.Get(ID: id);
+            return View(model);
         }
-
-        //
-        // POST: /Tricks/Edit/5
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator")]
         public ActionResult Edit(int id, FormCollection collection)
         {
+            var itemToUpdate = _tricksTable.CreateFrom(collection);
             try
             {
-                // TODO: Add update logic here
- 
+                _tricksTable.Update(itemToUpdate, id); 
                 return RedirectToAction("Index");
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                TempData["Error"] = "There was a problem editing this record: " + ex.Message;
+                return View(itemToUpdate);
             }
         }
 
-        //
-        // GET: /Tricks/Delete/5
- 
         public ActionResult Delete(int id)
         {
             return View();
         }
 
-        //
-        // POST: /Tricks/Delete/5
-
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, FormCollection collection)
         {
             try
             {
-                // TODO: Add delete logic here
- 
+                _tricksTable.Delete(id);
                 return RedirectToAction("Index");
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                TempData["Error"] = "There was a problem deleting this record: " + ex.Message;
+                return View("Index");
             }
         }
     }

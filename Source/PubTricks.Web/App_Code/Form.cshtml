@@ -1,4 +1,4 @@
-﻿@helper Scripts(){
+﻿@helper ValidatorScripts(){
     @Assets.Script("jquery.validate.min.js")
     @Assets.Script("jquery.validate.unobtrusive.min.js")
 }
@@ -50,6 +50,16 @@
     </p>
 }
 
+@helper TextBoxNumberWithDisplayName(string dbName, string displayName, object value = null, string numberMessage = "Should be a number") {
+    var val = value ?? "";
+            //using HTML5 and jQuery validations
+    <p>
+        <label>@displayName *</label>
+        <input type="text" name="@dbName" id="@dbName" value="@val" data-val="true" data-val-number="@numberMessage" />
+        @ValidationMessage(dbName)
+    </p>
+}
+
 @helper TextArea(string name, string attributes = "", object value = null) {
     var val = value ?? "";
     <p>
@@ -58,4 +68,17 @@
         <textarea name="@name" id="@name">@val</textarea>
 
     </p>
+}
+
+@helper HiddenID(object id){
+    <input type="hidden" name="ID" id="ID" value="@id" />
+}
+
+@helper Submit(string value="Save"){
+    <p>
+        <button type="submit" class="button positive">
+            <img src="/public/stylesheets/plugins/buttons/icons/tick.png" alt=""/>@value
+        </button>
+    </p>
+    <div class="clear"></div>
 }

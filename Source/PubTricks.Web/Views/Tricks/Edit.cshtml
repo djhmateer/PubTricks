@@ -1,14 +1,15 @@
 ﻿@{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Edit";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
-<h3>@Html.ActionLink("Tricks", "Index", "Tricks") > Create</h3>
+<h3>@Html.ActionLink("Tricks", "Index", "Tricks") > Edit @Model.Name</h3>
 @Form.ValidatorScripts()
 
 @using (Html.BeginForm()) {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
     @TempData["Error"]
+    @Form.HiddenID(Model.ID)
     @Form.TextBoxRequired(name: "Name", value: Model.Name, requiredMessage: "Name is required")
     @Form.TextArea(name: "Description", value: Model.Description)
     @Form.TextBox(name: "VideoURL", value: Model.VideoURL)

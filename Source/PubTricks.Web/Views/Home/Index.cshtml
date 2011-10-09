@@ -29,42 +29,24 @@
 
 <div id="slides">
     <div class="slides_container" style="display: none;">
+     <!--slideshow videos-->
+        @foreach (var item in Model) {
+                    
         <div class="slide ">
             <div class="image">
                 <div class="video">
                     <object style="height: 390px; width: 640px">
-                        <param name="movie" value="http://www.youtube.com/v/2_3BJq5srL4?version=3">
+                        <param name="movie" value="http://@item.VideoURL">
                         <param name="allowFullScreen" value="true">
                         <param name="allowScriptAccess" value="always">
                         <param name="wmode" value="transparent"></param>
-                        <embed wmode="transparent" src="http://www.youtube.com/v/2_3BJq5srL4?version=3" type="application/x-shockwave-flash"
+                        <embed wmode="transparent" src="http://@item.VideoURL" type="application/x-shockwave-flash"
                             allowfullscreen="true" allowscriptaccess="always" width="760" height="427"></object></div>
             </div>
         </div>
-        <div class="slide ">
-            <div class="image">
-                <div class="video">
-                    <object style="height: 390px; width: 640px">
-                        <param name="movie" value="http://www.youtube.com/v/OQXZXat-RPQ?version=3">
-                        <param name="allowFullScreen" value="true">
-                        <param name="allowScriptAccess" value="always">
-                        <param name="wmode" value="transparent"></param>
-                        <embed wmode="transparent" src="http://www.youtube.com/v/OQXZXat-RPQ?version=3" type="application/x-shockwave-flash"
-                            allowfullscreen="true" allowscriptaccess="always" width="760" height="427"></object></div>
-            </div>
-        </div>
-        <div class="slide ">
-            <div class="image">
-                <div class="video">
-                    <object style="height: 390px; width: 640px">
-                        <param name="movie" value="http://www.youtube.com/v/NsXyrPN-eNo?version=3" />
-                        <param name="allowFullScreen" value="true">
-                        <param name="allowScriptAccess" value="always">
-                        <param name="wmode" value="transparent"></param>
-                        <embed wmode="transparent" src="http://www.youtube.com/v/NsXyrPN-eNo?version=3" type="application/x-shockwave-flash"
-                            allowfullscreen="true" allowscriptaccess="always" width="760" height="427"></object></div>
-            </div>
-        </div>
+        }
+            
+       
     </div>
 </div>
 <div id="content-wrap">
@@ -78,33 +60,27 @@
         <div class="clear">
         </div>
         <div class="boxes box inside">
-            <!--latest videos-->
+            <!--top 5 latest videos sorted by date-->
             <div id="home-tab-latest" class="list">
-                <div class="post block">
+                @foreach (var item in Model) {
+                  <div class="post block">
                     <div class="tab-image-block">
-                        <a href="/video/uncross-your-arms" title="Uncross Your Arms">
-                            <img src="/public/images/UncrossArms-100x100.png" alt="Uncross Your Arms" class="woo-image thumbnail" /></a>
+                        <a href="/video/uncross-your-arms" title="@item.Name">
+                            <img src="/public/images/@item.Thumbnail" alt="@item.Name" class="woo-image thumbnail" /></a>
                     </div>
                     <h2 class="title">
-                        <a href="/video/uncross-your-arms" rel="bookmark" title="Uncross Your Arms">Uncross
-                            Your Arms</a></h2>
-                    <span class="date">October 4, 2011</span>
+                        <a href="/video/uncross-your-arms" rel="bookmark" title="@item.Name">@item.Name</a></h2>
+                    <span class="date">@item.DateCreated</span>
                 </div>
-                <div class="post block">
-                    <div class="tab-image-block">
-                        <a href="/video/kids-pen-trick" title="The Kids Pen Trick">
-                            <img src="/public/images/PenTrickImage-100x100.png" alt="The Kids Pen Trick" class="woo-image thumbnail" /></a>
-                    </div>
-                    <h2 class="title">
-                        <a href="/video/kids-pen-trick" rel="bookmark" title="The Kids Pen Trick">The Kids Pen
-                            Trick</a></h2>
-                    <span class="date">October 4, 2011</span>
-                </div>
+                }
+            
                 <div class="fix">
                 </div>
                 <div class="clear">
                 </div>
             </div>
+
+
             <!--most popular-->
             <div id="home-tab-pop" class="list">
                 <div class="post block">
