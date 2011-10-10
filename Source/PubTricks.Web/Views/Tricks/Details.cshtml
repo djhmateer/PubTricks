@@ -1,0 +1,182 @@
+﻿@{
+    Page.Title = "PubTricks - ";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div id="feat-title" class="col-full">
+    <h1 class="title">@Model.Name</h1>
+</div>
+<div id="feat-video" class="col-full">
+    <!--breadcrumbs-->
+    <div class="breadcrumb breadcrumbs woo-breadcrumbs">
+        <div class="breadcrumb-trail">
+            <span class="trail-before"><span class="breadcrumb-title">You are here:</span></span>
+            <a href="/" title="Premiere" rel="home" class="trail-begin">Home</a> <span class="sep">
+                &raquo;</span> <span class="trail-end">@Model.Name</span></div>
+    </div>
+    <!--video-->
+    <div class="video fl">
+        <div class="single-video">
+            @*<iframe src="http://player.vimeo.com/video/16726118?title=0&byline=0&portrait=0&color=D0D9E0"
+                width="600" height="337" frameborder="0"></iframe>*@
+            <object style="height: 390px; width: 640px">
+                <param name="movie" value="http://@Model.VideoURL">
+                <param name="allowFullScreen" value="true">
+                <param name="allowScriptAccess" value="always">
+                <param name="wmode" value="transparent"></param>
+                <embed wmode="transparent" src="http://@Model.VideoURL" type="application/x-shockwave-flash"
+                            allowfullscreen="true" allowscriptaccess="always" width="600" height="337"></object>
+        </div>
+        <!--sharing-->
+        <ul class="share">
+            <li class="twitter"><a href="http://twitter.com/home?status=Currently reading http://demo.woothemes.com/premiere/videos/sean-obrien/">
+                <img src="http://demo.woothemes.com/premiere/wp-content/themes/premiere/images/ico-share-twitter.png"
+                    alt="ico" />Tweet this Video</a> </li>
+            <li class="facebook-share"><a href="http://www.facebook.com/sharer.php?u=http://demo.woothemes.com/premiere/videos/sean-obrien/&t=Sean O&#8217;Brien">
+                <img src="http://demo.woothemes.com/premiere/wp-content/themes/premiere/images/ico-share-facebook.png"
+                    alt="ico" />Share on Facebook</a> </li>
+            <li class="email"><a href="mailto:?subject=Sean O&#8217;Brien on Premiere&body=Hi, 
+                            Check out this video called Sean O&#8217;Brien which I found on Premiere. 
+                            It can be viewed at http://demo.woothemes.com/premiere/videos/sean-obrien/.">
+                <img src="http://demo.woothemes.com/premiere/wp-content/themes/premiere/images/ico-share-mail.png"
+                    alt="ico" />Share via E-mail</a> </li>
+        </ul>
+    </div>
+    <!--right hand side description stuff-->
+    <div class="meta fr">
+        <div class="video-excerpt entry">
+            <p>@Model.Description</p>
+        </div>
+        <ul class="post-meta">
+            <li class="post-date"><span class="small">Posted on:</span> @Model.DateCreated</li>
+            @* <li class="post-category"><span class="small">Category:</span> <a href="/"
+                rel="tag">People &amp; Blogs</a></li>
+            <li class="post-tags"><span class="small">Tags:</span><ul>
+                <li><a href="/" rel="tag">featured</a></li><li>
+                    <a href="/" rel="tag">sean o'brien</a></li><li>
+                        <a href="/" rel="tag">woothemes</a></li></ul>
+            </li>*@
+            <li class="post-category"><span class="small">Likes so far:</span>@Model.Votes</li>
+            @using (Html.BeginForm()) {
+                @Html.AntiForgeryToken()
+                <li class="post-tags"><span class="small">Like:</span>
+                    <ul>
+                        <li>@Form.Submit("Like")</li>
+                    </ul>
+                </li>
+            }
+        </ul>
+    </div>
+    <div class="clear">
+    </div>
+</div>
+<!--white section underneath-->
+<div id="content-wrap">
+    <div id="content" class="col-full">
+        <div class="col-left">
+            <div id="main">
+                <div class="post-11 woo_video type-woo_video status-publish hentry tag-featured tag-sean-obrien tag-woothemes post">
+                    <div class="entry">
+                        <p>@Model.LongDescription</p>
+                    </div>
+                </div>
+            </div>
+            <!-- #main -->
+        </div>
+        <!-- /.col-left -->
+        <div id="sidebar" class="col-right">
+            <div class="primary">
+                <div id="woo_tabs-3" class="widget widget_woo_tabs">
+                    <!-- /wooTabs -->
+                </div>
+            </div>
+        </div>
+        <!-- /#sidebar -->
+    </div>
+    <!-- #content -->
+</div>
+
+
+<!--solution-->
+@if (@Model.VideoSolutionURL != null) { 
+    <div id="feat-title" class="col-full">
+        <h1 class="title">
+            Solution</h1>
+    </div>
+    <div id="feat-video" class="col-full">
+        <!--video-->
+        <div class="video fl">
+            <div class="single-video">
+                @*<iframe src="http://player.vimeo.com/video/16726118?title=0&byline=0&portrait=0&color=D0D9E0"
+                width="600" height="337" frameborder="0"></iframe>*@
+                <object style="height: 390px; width: 640px">
+                    <param name="movie" value="http://@Model.VideoSolutionURL">
+                    <param name="allowFullScreen" value="true">
+                    <param name="allowScriptAccess" value="always">
+                    <param name="wmode" value="transparent"></param>
+                    <embed wmode="transparent" src="http://@Model.VideoSolutionURL" type="application/x-shockwave-flash"
+                            allowfullscreen="true" allowscriptaccess="always" width="600" height="337"></object>
+            </div>
+        </div>
+        <!--right hand side description stuff-->
+        <div class="clear">
+        </div>
+    </div>
+}
+
+
+<!--bottom grey 4 col section-->
+<div id="footer-widgets" class="col-full col-4">
+    <div id="footer-wrapper">
+        <div class="block footer-widget-1">
+            <div id="recent-posts-3" class="widget widget_recent_entries">
+                <h3>
+                    Recent awesome posts</h3>
+                <ul>
+                    <li><a href="http://localhost:35436/?p=1" title="Hello world!">Hello world!</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="block footer-widget-2">
+            <div id="woo_subscribe-3" class="widget widget_woo_subscribe">
+                <div id="connect">
+                    <h3 class="title">
+                        Subscribe</h3>
+                    <div>
+                        <p>
+                            Blah</p>
+                        <div class="social">
+                        </div>
+                    </div>
+                    <!-- col-left -->
+                    <div class="fix">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="block footer-widget-3">
+            <div id="tag_cloud-3" class="widget widget_tag_cloud">
+                <h3>
+                    Stuff</h3>
+                <div class="tagcloud">
+                    <a href='http://localhost:35436/?tag=arms' class='tag-link-9' title='1 topic' style='font-size: 8pt;'>
+                        arms</a> <a href='http://localhost:35436/?tag=pen1' class='tag-link-7' title='1 topic'
+                            style='font-size: 8pt;'>pen1</a> <a href='http://localhost:35436/?tag=short' class='tag-link-8'
+                                title='1 topic' style='font-size: 8pt;'>short</a></div>
+            </div>
+        </div>
+        <div class="block footer-widget-4">
+            <div id="text-3" class="widget widget_text">
+                <h3>
+                    Quotes</h3>
+                <div id="textwidget">
+                    @foreach (dynamic item in PubTricks.Web.Models.Quotes.FromUsers()) {
+                        @Quotes.User(item)
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="fix">
+        </div>
+    </div>
+    <!-- #wrapper -->
+</div>

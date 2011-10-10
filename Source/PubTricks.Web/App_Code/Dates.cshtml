@@ -1,0 +1,15 @@
+﻿@functions{
+    public static dynamic ChopOffTime(DateTime str) {
+        //string[] words = str.ToString().Split(' ');
+        //string word = String.Format("{D}", str);
+        var date = str.ToString("dd MMM, yyyy");
+        
+        return new HtmlString(date);
+    }
+}
+
+@helper ShortDate(DateTime date) {
+    <div class="quote">
+        @ChopOffTime(date)
+    </div>    
+}

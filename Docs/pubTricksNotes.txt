@@ -289,32 +289,60 @@ make an ApplicationController to handle auth?
 TODO - Monday
 [doing]CName
 
-1. details page
+[done]1. details page
 		/tricks/2   - goes to a trick with ID of 2
 		/tricks/pen-trick  - goes to a trick with ID of 2 (with magic happening - this is the name of the trick)
 		
 		/tricks - shows all tricks
-		/category/kids - shows all tricks in the category kids
+		/categories/kids - shows all tricks in the category kids
 		
 		
+		/admin/tricks/create
+		/admin/tricks/delete
+		/admin/tricks/edit/2
+		/admin/categories/edit/5 - Kids category edit 
 		
-		/admin/trick/edit/2
-		/admin/category/edit/5 - Kids category edit 
-		
-		
-		
-		
-2. like functionality
-3. Text on slider bar, hyperlink in slider bar to details page.. good static images..styley....use own photos?
+TODO Tuesday
+	Review and see where I'm going - Develop apps fast which are what user needs, are testable, and we can deliver in stages as requirements change
+														Entrepreneurial style.  Simple is good.
+														
+		Projects I'm going to be working on:
+			PocketVouchers - lots of tables.. want to know the app is working, want to know when it slows down on live!
+			FaceBook app - a good number of tables, high performance, TDD/BDD essential
 
-categories?
+	
+1. like functionality
+		implement a cookie so a use can only vote for each trick once
+		turn off tweet/facebook stuff/email
+		
+2. Text on slider bar, hyperlink in slider bar to details page.. good static images..styley....use own photos?... make slider smaller
+
+3. Most popular Tabs working
+
+3.2  Take off search box
+
+Send to Phil and Nora
+
+
+3.5  Testing focus on the whole site - what can/can't should/shouldn't I test?
 
 4. Admin BDD features
+		fix up admin so can enter all details in create screen as well as edit (merge two together?)
+
+   Auto document from Specs
+
+4. Categories and other tables.. build out complexity to be like other applications.. and their tests
+		Cruddy controller
+		
 5. Admin CSS strip out
 
+Google analytics
 UserVoice for feedback.
+actually do a facebook like thing.
 
-bring in Add/Edit roles
+bring in Add/Edit roles from project found yesterday
+	http://webadvert.codeplex.com/
+
 
 -------
 Technologies used (in order)

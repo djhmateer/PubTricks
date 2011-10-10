@@ -18,12 +18,11 @@ namespace PubTricks.Tests.Functionals {
             Assert.IsNotNull(result);
         }
 
-        [Test]
-        public void tricks_controller_should_return_a_result() {
-            TricksController controller = new TricksController();
-            ViewResult result = controller.Index() as ViewResult;
-            Assert.IsNotNull(result);
-        }
-
+        //[Test]
+        //public void tricks_controller_should_return_a_result() {
+        //    TricksController controller = new TricksController();
+        //    ViewResult result = controller.Index() as ViewResult;
+        //    Assert.IsNotNull(result);
+        //}
     }
 }

@@ -5,8 +5,8 @@ using Massive;
 
 namespace PubTricks.Web.Models {
     public class Tricks : DynamicModel {
-        DynamicModel _tbl;
-        //dynamic _tbl;
+        //DynamicModel _tbl;
+        dynamic _tbl;
 
         public Tricks() : base("PubTricks", "Tricks", "ID") {
             _tbl = new DynamicModel("PubTricks", "Tricks", "ID");

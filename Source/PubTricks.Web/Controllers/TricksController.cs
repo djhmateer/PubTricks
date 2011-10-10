@@ -1,6 +1,9 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
 using PubTricks.Web.Models;
-using System;
 
 namespace PubTricks.Web.Controllers
 {
@@ -10,42 +13,11 @@ namespace PubTricks.Web.Controllers
         public TricksController() {
             _tricksTable = new Tricks();
         }
-
-        [Authorize(Roles = "Administrator")]
-        public ActionResult Index()
-        {
-            return View(_tricksTable.All());
-        }
-
+       
+        //
+        // GET: /Tricks/Details/5
+        // /Trick/the-pen-trick
         public ActionResult Details(int id)
-        {
-            return View(_tricksTable.FindBy(ID: id, schema: true));
-        }
-
-        public ActionResult Create()
-        {
-            return View(_tricksTable.Prototype);
-        } 
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(FormCollection collection)
-        {
-            var itemToCreate = _tricksTable.CreateFrom(collection);
-            try
-            {
-                _tricksTable.Insert(itemToCreate);
-                return RedirectToAction("Index");
-            }
-            catch (Exception ex)
-            {
-                TempData["Error"] = "There was an error adding the trick: "+ ex.Message;
-                return View(itemToCreate);
-            }
-        }
-
-        [Authorize(Roles = "Administrator")]
-        public ActionResult Edit(int id)
         {
             var model = _tricksTable.Get(ID: id);
             return View(model);
@@ -53,40 +25,19 @@ namespace PubTricks.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Administrator")]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
-            var itemToUpdate = _tricksTable.CreateFrom(collection);
-            try
-            {
-                _tricksTable.Update(itemToUpdate, id); 
-                return RedirectToAction("Index");
+        public ActionResult Details(int id, FormCollection collection) {
+            var trickToAddVoteTo = _tricksTable.Get(ID: id);
+            var currentVotes = trickToAddVoteTo.Votes;
+            currentVotes += 1;
+            trickToAddVoteTo.Votes = currentVotes;
+            //var itemToUpdate = _tricksTable.CreateFrom(collection);
+            try {
+                _tricksTable.Update(trickToAddVoteTo, id);
+                return RedirectToAction("Details", id);
             }
-            catch (Exception ex)
-            {
-                TempData["Error"] = "There was a problem editing this record: " + ex.Message;
-                return View(itemToUpdate);
-            }
-        }
-
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                _tricksTable.Delete(id);
-                return RedirectToAction("Index");
-            }
-            catch (Exception ex)
-            {
-                TempData["Error"] = "There was a problem deleting this record: " + ex.Message;
-                return View("Index");
+            catch (Exception ex) {
+                TempData["Error"] = "There was a problem updating the like: " + ex.Message;
+                return View();
             }
         }
     }

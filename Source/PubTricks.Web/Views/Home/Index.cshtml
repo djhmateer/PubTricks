@@ -27,11 +27,10 @@
     });
 </script>
 
+<!--slides-->
 <div id="slides">
     <div class="slides_container" style="display: none;">
-     <!--slideshow videos-->
         @foreach (var item in Model) {
-                    
         <div class="slide ">
             <div class="image">
                 <div class="video">
@@ -45,10 +44,9 @@
             </div>
         </div>
         }
-            
-       
     </div>
 </div>
+<!--tabs-->
 <div id="content-wrap">
     <div id="tabs-home" class="col-full">
         <ul class="wooTabs">
@@ -65,12 +63,13 @@
                 @foreach (var item in Model) {
                   <div class="post block">
                     <div class="tab-image-block">
-                        <a href="/video/uncross-your-arms" title="@item.Name">
+                        <a href="/tricks/details/@item.ID" title="@item.Name">
                             <img src="/public/images/@item.Thumbnail" alt="@item.Name" class="woo-image thumbnail" /></a>
                     </div>
                     <h2 class="title">
                         <a href="/video/uncross-your-arms" rel="bookmark" title="@item.Name">@item.Name</a></h2>
-                    <span class="date">@item.DateCreated</span>
+                    <span class="date">@Dates.ShortDate(@item.DateCreated)</span>
+                    <span class="likes">Likes: @item.Votes</span>
                 </div>
                 }
             

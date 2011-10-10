@@ -8,7 +8,7 @@ using System.Configuration;
 using System.Data;
 using System.Collections.Specialized;
 
-namespace Massive {
+namespace Massive3 {
     public static class ObjectExtensions {
         public static dynamic RecordToExpando(this IDataReader rdr) {
             dynamic e = new ExpandoObject();

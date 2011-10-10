@@ -101,8 +101,9 @@
   <ItemGroup>
     <Content Include="App_Code\Quotes.cshtml" />
     <Compile Include="App_Start\NinjectMVC3.cs" />
+    <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\TricksController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\TricksController.cs" />
     <Compile Include="Global.asax.cs">
@@ -303,7 +304,9 @@
     <Content Include="App_Code\URL.cshtml" />
     <Content Include="App_Code\Snippets.cshtml" />
     <Content Include="App_Code\Form.cshtml" />
+    <Content Include="App_Code\Dates.cshtml" />
     <None Include="App_Data\logs\site.log" />
+    <Content Include="Areas\Admin\Views\Web.config" />
     <None Include="CodeTemplates\AddController\Controller.tt" />
     <None Include="CodeTemplates\AddView\CSHTML\Create.tt" />
     <None Include="CodeTemplates\AddView\CSHTML\Delete.tt" />
@@ -313,13 +316,17 @@
     <None Include="CodeTemplates\AddView\CSHTML\List.tt" />
     <None Include="Public\stylesheets\images\logoPubTricks.pdn" />
     <Content Include="Views\Shared\_AdminLayout.cshtml" />
-    <Content Include="Views\Tricks\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Tricks\Index.cshtml" />
     <Content Include="Views\Shared\_AdminLayoutMaster.cshtml" />
-    <Content Include="Views\Tricks\Create.cshtml" />
-    <Content Include="Views\Tricks\Edit.cshtml" />
-    <Content Include="Views\Tricks\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Tricks\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Tricks\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Tricks\Delete.cshtml" />
+    <Content Include="Views\Tricks\Details.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Areas\Admin\Models\" />
+    <Folder Include="Areas\Admin\Views\Shared\" />
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

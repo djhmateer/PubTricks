@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using NUnit.Framework;
 using PubTricks.Web.Models;
-using Massive;
+using Massive3;
 
 namespace PubTricks.Tests.Specs {
     [TestFixture]

@@ -15,8 +15,9 @@ namespace PubTricks.Web.Controllers {
 
         public ActionResult Index() {
             _logger.LogInfo("In home");
-            return View(_tricksTable.All());
+            //var data = _tricksTable.All(orderBy: "DateCreated");
+            var data = _tricksTable.Query("SELECT * FROM Tricks ORDER BY DateCreated DESC");
+            return View(data);
         }
-
     }
 }
