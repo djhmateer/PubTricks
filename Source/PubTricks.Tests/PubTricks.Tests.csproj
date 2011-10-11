@@ -58,7 +58,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Functionals\AdminControllersTests.cs" />
-    <Compile Include="Functionals\PublicControllersTests.cs" />
+    <Compile Include="Functionals\TricksControllerTests.cs" />
+    <Compile Include="Functionals\HomeControllerTests.cs" />
     <Compile Include="Infrastructure\FakeLogger.cs" />
     <Compile Include="Infrastructure\TestLogger.cs" />
     <Compile Include="Specs\CategorySpecs.cs" />

@@ -1,8 +1,8 @@
 ﻿@if(Request.IsAuthenticated) {
     <text>Welcome <strong>@User.Identity.Name</strong>
      @(User.IsInRole("Administrator") ? "(Administrator)" : String.Empty) 
-    [ @Html.ActionLink("Log Off", "LogOff", "Account") ]</text>
+    [ <a href="/Account/LogOff">Log Off</a>]</text>
 }
 else {
-    @:[ @Html.ActionLink("Log On", "LogOn", "Account") ]
+    @:[<a href="/Account/LogOn">Log Off</a>]
 }

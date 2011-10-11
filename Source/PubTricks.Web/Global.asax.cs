@@ -14,15 +14,20 @@ namespace PubTricks.Web {
         public static void RegisterRoutes(RouteCollection routes) {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
+            // Tricks/The-Pen-Trick
+            routes.MapRoute(
+                "TricksMakeNiceURL", 
+                "tricks/{trickName}", 
+                new { controller = "Tricks", action = "Details", trickName = UrlParameter.Optional },
+                new string[] { "PubTricks.Web.Controllers" }
+            );
+
             routes.MapRoute(
                 "Default", // Route name
                 "{controller}/{action}/{id}", // URL with parameters
-                //new { controller = "Home", action = "Index", id = UrlParameter.Optional } // Parameter defaults
-                new { controller = "Home", action = "Index", id = UrlParameter.Optional},
-                new string[] { "PubTricks.Web.Controllers" }  // Parameter defaults
-
-
-                //new { controller = "Tricks", action = "Index", id = UrlParameter.Optional } // Parameter defaults
+                new { controller = "Home", action = "Index", id = UrlParameter.Optional },
+                //front end tricks doesn't get confused with admin/tricks
+                new string[] { "PubTricks.Web.Controllers" }
             );
 
         }

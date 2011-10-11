@@ -125,9 +125,12 @@
     <Content Include="Public\images\bg-search.png" />
     <Content Include="Public\images\btn-search.png" />
     <Content Include="Public\images\CoinTrick-100x100.png" />
+    <Content Include="Public\images\coinTrick2Flickr.jpg" />
     <Content Include="Public\images\FootAndHand-100x100.png" />
+    <Content Include="Public\images\kidsTrickFlickr.jpg" />
     <Content Include="Public\images\logoPubTricks.png" />
     <Content Include="Public\images\PenTrickImage-100x100.png" />
+    <Content Include="Public\images\pubTrickFlickr.jpg" />
     <Content Include="Public\images\UncrossArms-100x100.png" />
     <Content Include="Public\images\woothemes-74x18.png" />
     <Content Include="Public\javascripts\jquery.cycle.all.js" />
@@ -259,6 +262,7 @@
     <Content Include="Public\javascripts\menu.js" />
     <Content Include="Public\javascripts\slides.min.jquery.js" />
     <Content Include="Public\javascripts\superfish.js" />
+    <Content Include="Public\stylesheets\Site.css" />
     <Content Include="Public\stylesheets\src\forms.css" />
     <Content Include="Public\stylesheets\src\grid.css" />
     <Content Include="Public\stylesheets\src\grid.png" />
@@ -322,6 +326,7 @@
     <Content Include="Areas\Admin\Views\Tricks\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Tricks\Delete.cshtml" />
     <Content Include="Views\Tricks\Details.cshtml" />
+    <Content Include="Views\Home\Thanks.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Admin\Models\" />

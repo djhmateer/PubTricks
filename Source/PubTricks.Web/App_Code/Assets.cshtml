@@ -12,6 +12,12 @@
     </a>
 }
 
+@helper ImageLinkFromTheme(string link, string imageFile, string textToDisplay) {
+    <a href="@link">
+       <img src = "/public/stylesheets/images/@imageFile" />@textToDisplay
+    </a>
+}
+
 @helper jQuery(bool useGoogle = true){
     if (useGoogle) { 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js" type="text/javascript"></script>

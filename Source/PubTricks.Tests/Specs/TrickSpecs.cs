@@ -10,9 +10,11 @@ namespace PubTricks.Tests.Specs {
     [TestFixture]
     public class TrickSpecs : TestBase {
         DynamicModel _tbl;
+        Tricks _trick;
 
         public TrickSpecs() {
             this.Describes("PubTricks admin");
+            _trick = new Tricks();
             _tbl = new DynamicModel("PubTricks", "Tricks", "ID");
         }
 
@@ -21,34 +23,56 @@ namespace PubTricks.Tests.Specs {
             _tbl.Delete();
         }
 
+        //admin authentication and authorisation
         [Test]
-        public void a_user_should_be_able_to_view_5_most_popular_tricks_in_video_slider() {
+        public void all_admin_screens_and_posts_require_logged_in_and_member_of_administrators_role() {
             this.IsPending();
         }
 
         [Test]
-        public void a_user_should_be_able_to_view_10_most_recently_added_tricks_in_latest_videos_tab() {
+        public void all_admin_posts_cross_site_scripting_turned_on() {
             this.IsPending();
         }
 
+        //create, read, update, delete tricks - testing business logic and persistence
         [Test]
-        public void a_user_should_be_able_to_view_10_most_popular_tricks_in_most_popular_tab() {
-            this.IsPending();
+        public void a_new_trick_should_be_saved_to_db_on_add_trick() {
+            string nameOfTrick = "test name";
+            var result = _trick.AddTrick(nameOfTrick, "test desc", "test url");
+
+            Assert.AreEqual(1, _tbl.All().Count());
         }
 
         [Test]
-        public void a_user_should_be_able_to_like_a_video() {
-            this.IsPending();
+        public void a_new_trick_should_be_saved_to_db_on_add_trick_and_correct_result_returned() {
+            string name = "test name b";
+            var result = _trick.AddTrick(name, "test desc", "test url");
+            var trickFromDB = _tbl.All(where: "WHERE Name=@0", args: name);
+            Assert.AreEqual(1, trickFromDB.Count());
         }
 
         [Test]
-        public void a_user_should_be_able_to_like_a_video_only_once() {
-            this.IsPending();
+        public void duplicate_name_of_new_trick_should_fail_to_save() {
+            var result = _trick.AddTrick("test name", "test desc", "test url");
+            var result2 = _trick.AddTrick("test name", "test desc2", "test url2");
+            Assert.IsFalse(result2.Success, "Result success should be false");
+            Assert.AreEqual(result2.Message, "Duplicate names of tricks not allowed");
         }
 
         [Test]
-        public void an_admin_should_be_able_to_add_a_trick() {
-            this.IsPending();
+        public void duplicate_videourl_of_new_trick_should_fail_to_save() {
+            var result = _trick.AddTrick("test name", "test desc", "test url");
+            var result2 = _trick.AddTrick("test name2", "test desc2", "test url");
+            Assert.IsFalse(result2.Success, "Result success should be false");
+            Assert.AreEqual(result2.Message, "Duplicate VideoURL of tricks not allowed");
+        }
+
+        [Test]
+        public void description_should_be_more_than_5_chars_long() {
+            string name = "test name";
+            var result = _trick.AddTrick(name, "test", "test url");
+            Assert.IsFalse(result.Success, "Result success should be false");
+            Assert.AreEqual(result.Message, "Need more than 5 characters in the description");
         }
 
         [Test]
@@ -71,48 +95,16 @@ namespace PubTricks.Tests.Specs {
             this.IsPending();
         }
 
+        //google seo
         [Test]
-        public void a_new_trick_should_be_saved_to_db_on_add_trick() {
-            Tricks trick = new Tricks();
-            string name = "test name";
-            var result = trick.AddTrick(name, "test desc", "test url");
-            Assert.AreEqual(1, _tbl.All().Count());
+        public void site_should_generate_a_file_for_seo_on_every_admin_create_edit_update_del() {
+            this.IsPending();
         }
 
+        //performance
         [Test]
-        public void a_new_trick_should_be_saved_to_db_on_add_trick_and_correct_result_returned() {
-            Tricks trick = new Tricks();
-            string name = "test name b";
-            var result = trick.AddTrick(name, "test desc", "test url");
-            var trickFromDB = _tbl.All(where: "WHERE Name=@0", args: name);
-            Assert.AreEqual(1, trickFromDB.Count());
-        }
-
-        [Test]
-        public void duplicate_name_of_new_trick_should_fail_to_save() {
-            Tricks trick = new Tricks();
-            var result = trick.AddTrick("test name", "test desc", "test url");
-            var result2 = trick.AddTrick("test name", "test desc2", "test url2");
-            Assert.IsFalse(result2.Success, "Result success should be false");
-            Assert.AreEqual(result2.Message, "Duplicate names of tricks not allowed");
-        }
-
-        [Test]
-        public void duplicate_videourl_of_new_trick_should_fail_to_save() {
-            Tricks trick = new Tricks();
-            var result = trick.AddTrick("test name", "test desc", "test url");
-            var result2 = trick.AddTrick("test name2", "test desc2", "test url");
-            Assert.IsFalse(result2.Success, "Result success should be false");
-            Assert.AreEqual(result2.Message, "Duplicate VideoURL of tricks not allowed");
-        }
-
-        [Test]
-        public void description_should_be_more_than_5_chars_long() {
-            Tricks trick = new Tricks();
-            string name = "test name";
-            var result = trick.AddTrick(name, "test", "test url");
-            Assert.IsFalse(result.Success, "Result success should be false");
-            Assert.AreEqual(result.Message, "Need more than 5 characters in the description");
+        public void rendering_of_all_tricks_page_should_be_less_than_one_second_with_two_hundred_tricks() {
+            this.IsPending();
         }
     }
 }

@@ -311,32 +311,44 @@ TODO Tuesday
 			FaceBook app - a good number of tables, high performance, TDD/BDD essential
 
 	
-1. like functionality
-		implement a cookie so a use can only vote for each trick once
-		turn off tweet/facebook stuff/email
+[done]1. like functionality
+		[done]implement a cookie so a use can only vote for each trick once
+		[done]turn off tweet/facebook stuff/email
 		
-2. Text on slider bar, hyperlink in slider bar to details page.. good static images..styley....use own photos?... make slider smaller
+[done]2. Text on slider bar, hyperlink in slider bar to details page.. good static images..styley....use own photos?... make slider smaller
+	<div class="text bottom">
+	<div class="text top">
+		http://www.flickr.com/photos/si/2406409/sizes/o/in/photostream/  - Simon Hammond
+		http://www.flickr.com/photos/mrlerone/75159252/ - Tony Bradbury
+		http://www.flickr.com/photos/fabulousterrah/3336330479/ - Fabulour Terrah
+		
+		760*451 is the original size of the images
 
-3. Most popular Tabs working
 
-3.2  Take off search box
+[done]3. Most popular Tabs working
 
-Send to Phil and Nora
+[done]3.2 Take off search box
 
+[done]3.3 put on Google analytics
 
-3.5  Testing focus on the whole site - what can/can't should/shouldn't I test?
+[done]upload proper verison to Azure
+[doing]Send to Phil and Nora
+
+3.5  TDD/BDD focus on the whole site - what can/can't should/shouldn't I test?
+			what if URL is wrong?
+					problem: tests fail if of type dynamic in Tricks...  trickFromDB is of type:  dynamic {Massive.DynamicModel.Query}
+										if set DynamicModel.. then trickFromDB is of type: IEnumerable<dynamic>
 
 4. Admin BDD features
 		fix up admin so can enter all details in create screen as well as edit (merge two together?)
 
-   Auto document from Specs
-
 4. Categories and other tables.. build out complexity to be like other applications.. and their tests
 		Cruddy controller
+
+   Auto document from Specs
 		
 5. Admin CSS strip out
 
-Google analytics
 UserVoice for feedback.
 actually do a facebook like thing.
 

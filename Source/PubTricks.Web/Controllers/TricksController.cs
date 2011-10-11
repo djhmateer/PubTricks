@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using PubTricks.Web.Models;
+using System.Linq;
+using System.Collections;
 
 namespace PubTricks.Web.Controllers
 {
@@ -15,22 +17,63 @@ namespace PubTricks.Web.Controllers
         }
        
         //
-        // GET: /Tricks/Details/5
-        // /Trick/the-pen-trick
-        public ActionResult Details(int id)
+        // /Tricks/Details/5 
+        // /Tricks/The-Pen-Trick
+        public ActionResult Details(int id = 0, string trickName = "")
         {
+            //if we have been passed /Tricks/Pen-Trick find the id
+        
+            if (id == 0) {
+                GetIDFromTrickName(ref id, ref trickName);
+            }
+
+
+            //see if there is a cookie in the users browser for this trick (ie have they liked it before)
+            string cookieValue = "";
+            string cookieName = "Trick_" + id.ToString();
+            if (this.ControllerContext.HttpContext.Request.Cookies.AllKeys.Contains(cookieName)) {
+                cookieValue = cookieName + ": " + this.ControllerContext.HttpContext.Request.Cookies[cookieName].Value;
+            }
+            ViewData["CookieStuffToDisplay"] = cookieValue;
+
             var model = _tricksTable.Get(ID: id);
             return View(model);
         }
 
+        private void GetIDFromTrickName(ref int id, ref string trickName) {
+            trickName = trickName.ToLower();
+
+            trickName = trickName.Replace("-", " ");
+
+            string sql = "SELECT ID from Tricks WHERE Name = '" + trickName + "'";
+            var result = _tricksTable.Query(sql);
+
+            //refactor - tried ToList() and FirstOrDefault() but this seems to be only way
+            int x = 0;
+            foreach (var item in result) {
+                x = item.ID;
+            }
+            id = x;
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Details(int id, FormCollection collection) {
+        public ActionResult Details(FormCollection collection, int id = 0, string trickName = "") {
+            if (id == 0) {
+                GetIDFromTrickName(ref id, ref trickName);
+            }
+
             var trickToAddVoteTo = _tricksTable.Get(ID: id);
-            var currentVotes = trickToAddVoteTo.Votes;
-            currentVotes += 1;
-            trickToAddVoteTo.Votes = currentVotes;
-            //var itemToUpdate = _tricksTable.CreateFrom(collection);
+            trickToAddVoteTo.Votes += 1;
+
+            //add a cookie to the users browser for this trick
+            string cookieName = "Trick_" + id.ToString();
+            HttpCookie cookie = new HttpCookie(cookieName);
+            cookie.Value = DateTime.Now.ToString();
+            cookie.Expires = DateTime.Now.AddYears(1);
+
+            this.ControllerContext.HttpContext.Response.Cookies.Add(cookie);
+
             try {
                 _tricksTable.Update(trickToAddVoteTo, id);
                 return RedirectToAction("Details", id);

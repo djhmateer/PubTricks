@@ -31,6 +31,20 @@
     @*@Assets.CSS("shortcodes.css")*@
 	<!-- Custom Stylesheet -->
     @*@Assets.CSS("custom.css")*@
+
+    <!--google analytics-->
+    <script type="text/javascript">
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-26245026-1']);
+        _gaq.push(['_trackPageview']);
+
+        (function () {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+
 </head>
 
 <body class="home blog chrome layout-left-content">
@@ -43,11 +57,12 @@
 					</div>
 
 					<div id="search-top">
-						<form method="get" class="searchform" action="/search">
+					@*	<form method="get" class="searchform" action="/search">
 						<input type="text" class="field s" name="s" value="Search Videos" onfocus="if (this.value == 'Search Videos') {this.value = '';}"
 							onblur="if (this.value == '') {this.value = 'Search Videos';}" />
 						<input type="image" src="/public/images/btn-search.png"	class="search-submit" name="submit" value="Go" />
-						</form>
+						</form>*@
+
 						<!-- /#search-top -->
 						<div class="clear">
 						</div>
@@ -58,7 +73,7 @@
 			<div id="navigation">
 				<div class="col-full">
 					<ul id="tagline">
-						<span class="site-description">Awesome Pub Tricks to entertain your friends!</span>
+						<span class="site-description">Awesome Pub Tricks!</span>
 					</ul>
 					<ul id="main-nav" class="nav fr">
 						<li class="page_item current_page_item"><a href="/">Home</a></li>

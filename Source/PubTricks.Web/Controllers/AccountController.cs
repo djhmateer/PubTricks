@@ -47,7 +47,6 @@ namespace PubTricks.Web.Controllers {
 
         public ActionResult LogOff() {
             FormsAuthentication.SignOut();
-
             return RedirectToAction("Index", "Home");
         }
 

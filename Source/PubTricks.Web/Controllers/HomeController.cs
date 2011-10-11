@@ -1,6 +1,7 @@
 ﻿using System.Web.Mvc;
 using PubTricks.Web.Infrastructure;
 using PubTricks.Web.Models;
+using System.Dynamic;
 
 namespace PubTricks.Web.Controllers {
     public class HomeController : Controller {
@@ -16,8 +17,19 @@ namespace PubTricks.Web.Controllers {
         public ActionResult Index() {
             _logger.LogInfo("In home");
             //var data = _tricksTable.All(orderBy: "DateCreated");
+            dynamic viewModel = new ExpandoObject();
             var data = _tricksTable.Query("SELECT * FROM Tricks ORDER BY DateCreated DESC");
-            return View(data);
+            viewModel.AllTricksNewestFirst = data;
+
+            var data2 = _tricksTable.Query("SELECT * FROM Tricks ORDER BY Votes DESC");
+            viewModel.AllTricksMostPopularFirst = data2;
+
+            return View(viewModel);
+        }
+
+        public ActionResult Thanks() {
+            _logger.LogInfo("In thanks");
+            return View();
         }
     }
 }

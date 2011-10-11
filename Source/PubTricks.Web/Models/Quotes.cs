@@ -6,12 +6,10 @@ using System.Web;
 namespace PubTricks.Web.Models {
     public class Quotes {
         public static dynamic FromUsers() {
-            var quotes = new string[] {"I just rocked the interview blah blah"
+            var quotes = new string[] {"The pen trick was great - took me a while to get it"
                 ,"This is really great"
-                ,"Bough mastering jquery from vidpub and so far it rocks"
-                ,"2Bough mastering jquery from vidpub and so far it rocks"
-                ,"3Bough mastering jquery from vidpub and so far it rocks"
-                ,"4Bough mastering jquery from vidpub and so far it rocks"
+                ,"The kids loved the pen trick"
+                ,"It took my mates 3 pints of beer to get the pen trick right"
             };
             Random rnd = new Random();
             return quotes.OrderBy(x => rnd.Next()).ToList();
