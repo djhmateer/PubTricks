@@ -29,35 +29,40 @@ namespace PubTricks.Tests.Functionals {
         public void Init() {
             _tbl.Delete();
 
-            //load database with test data
-            var result = _trick.AddTrick(name: "Uncross Your Arms", description: "Uncross your arms description - very funny to watch",
-                videourl: @"www.youtube.com/v/2_3BJq5srL4?version=3", votes: 7, thumbnail: @"UncrossArms-100x100.png",
-                longdescription: @"This is a good trick especially for kids or friends who have drunk more than 4 pints of beer (or 2 pints of cider.. never again...)",
-                videosolutionurl: @"www.youtube.com/v/IyctbzxAA7U?version=3");
+            //var result = PopulateDBWithTestData();
 
-            result = _trick.AddTrick(name: "Pen Trick", description: "This is the pen trick description",
-                videourl: @"www.youtube.com/v/OQXZXat-RPQ?version=3", votes: 11, thumbnail: @"PenTrickImage-100x100.png",
-                longdescription: @"The pen trick is one of my favourite all time tricks.. if there is one you remember try this one!",
-                videosolutionurl: @"www.youtube.com/v/ILEWo_-Fib8?version=3");
-
-            result = _trick.AddTrick(name: "Beer trap", description: "Beer trap description",
-                videourl: @"www.youtube.com/v/NsXyrPN-eNo?version=3", votes: 6, thumbnail: @"Beer-100x100.png",
-                longdescription: @"Best to do this one after your mates have had a lot to drink!");
-
-            result = _trick.AddTrick(name: "Foot and Hand Circles", description: "Foot and Hand circles description",
-                videourl: @"www.youtube.com/v/TsGhmK8Zgtc?version=3", votes: 3, thumbnail: @"FootAndHand-100x100.png",
-                longdescription: @"Foot and hand circles requires some serious concentration!");
-
-            result = _trick.AddTrick(name: "Coin Trick", description: "The amazing coin trick",
-                videourl: @"www.youtube.com/v/-hnnpzBSnU8?version=3", votes: 8, thumbnail: @"CoinTrick-100x100.png",
-                longdescription: @"The coin trick is a good one!",
-                videosolutionurl: @"www.youtube.com/v/rlhAj5_i56I?version=3");
-
-            if (!result.Success)
-                DisplaySQLErrorInConsoleWindow(result);
-            else
-                Assert.AreEqual(5, _tbl.All().Count());
+            //if (!result.Success)
+            //    DisplaySQLErrorInConsoleWindow(result);
+            //else
+            //    Assert.AreEqual(5, _tbl.All().Count());
         }
+
+        //private dynamic PopulateDBWithTestData() {
+        //    //load database with test data
+        //    var result = _trick.AddTrick(name: "Uncross Your Arms", description: "Uncross your arms description - very funny to watch",
+        //        videourl: @"www.youtube.com/v/2_3BJq5srL4?version=3", votes: 7, thumbnail: @"UncrossArms-100x100.png",
+        //        longdescription: @"This is a good trick especially for kids or friends who have drunk more than 4 pints of beer (or 2 pints of cider.. never again...)",
+        //        videosolutionurl: @"www.youtube.com/v/IyctbzxAA7U?version=3");
+
+        //    result = _trick.AddTrick(name: "Pen Trick", description: "This is the pen trick description",
+        //        videourl: @"www.youtube.com/v/OQXZXat-RPQ?version=3", votes: 11, thumbnail: @"PenTrickImage-100x100.png",
+        //        longdescription: @"The pen trick is one of my favourite all time tricks.. if there is one you remember try this one!",
+        //        videosolutionurl: @"www.youtube.com/v/ILEWo_-Fib8?version=3");
+
+        //    result = _trick.AddTrick(name: "Beer trap", description: "Beer trap description",
+        //        videourl: @"www.youtube.com/v/NsXyrPN-eNo?version=3", votes: 6, thumbnail: @"Beer-100x100.png",
+        //        longdescription: @"Best to do this one after your mates have had a lot to drink!");
+
+        //    result = _trick.AddTrick(name: "Foot and Hand Circles", description: "Foot and Hand circles description",
+        //        videourl: @"www.youtube.com/v/TsGhmK8Zgtc?version=3", votes: 3, thumbnail: @"FootAndHand-100x100.png",
+        //        longdescription: @"Foot and hand circles requires some serious concentration!");
+
+        //    result = _trick.AddTrick(name: "Coin Trick", description: "The amazing coin trick",
+        //        videourl: @"www.youtube.com/v/-hnnpzBSnU8?version=3", votes: 8, thumbnail: @"CoinTrick-100x100.png",
+        //        longdescription: @"The coin trick is a good one!",
+        //        videosolutionurl: @"www.youtube.com/v/rlhAj5_i56I?version=3");
+        //    return result;
+        //}
 
         [Test]
         public void tricks_controller_should_return_correct_data() {

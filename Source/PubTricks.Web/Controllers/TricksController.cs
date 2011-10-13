@@ -60,6 +60,7 @@ namespace PubTricks.Web.Controllers
             id = x;
         }
 
+        //when like button is pressed
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Details(FormCollection collection, int id = 0, string trickName = "") {

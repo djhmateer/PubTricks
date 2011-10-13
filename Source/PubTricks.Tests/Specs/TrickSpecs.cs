@@ -22,15 +22,15 @@ namespace PubTricks.Tests.Specs {
         }
 
         //create and read tricks - testing business logic and persistence
-        [Test]
-        public void a_new_trick_should_be_saved_to_db_on_add_trick() {
-            string nameOfTrick = "test name";
-            var result = _trick.AddTrick(nameOfTrick, "test desc", "test url");
-            if (!result.Success) 
-                DisplaySQLErrorInConsoleWindow(result);
-            else 
-                Assert.AreEqual(1, _tbl.All().Count());
-        }
+        //[Test]
+        //public void a_new_trick_should_be_saved_to_db_on_add_trick() {
+        //    string nameOfTrick = "test name";
+        //    var result = _trick.AddTrick(nameOfTrick, "test desc", "test url");
+        //    if (!result.Success) 
+        //        DisplaySQLErrorInConsoleWindow(result);
+        //    else 
+        //        Assert.AreEqual(1, _tbl.All().Count());
+        //}
 
         private static void DisplaySQLErrorInConsoleWindow(dynamic result) {
             string errorMessage = result.Message;
@@ -41,29 +41,29 @@ namespace PubTricks.Tests.Specs {
        
 
 
-        [Test]
-        public void duplicate_name_of_new_trick_should_fail_to_save() {
-            var result = _trick.AddTrick("test name", "test desc", "test url");
-            var result2 = _trick.AddTrick("test name", "test desc2", "test url2");
-            Assert.IsFalse(result2.Success, "Result success should be false");
-            Assert.AreEqual(result2.Message, "Duplicate names of tricks not allowed");
-        }
+        //[Test]
+        //public void duplicate_name_of_new_trick_should_fail_to_save() {
+        //    var result = _trick.AddTrick("test name", "test desc", "test url");
+        //    var result2 = _trick.AddTrick("test name", "test desc2", "test url2");
+        //    Assert.IsFalse(result2.Success, "Result success should be false");
+        //    Assert.AreEqual(result2.Message, "Duplicate names of tricks not allowed");
+        //}
 
-        [Test]
-        public void duplicate_videourl_of_new_trick_should_fail_to_save() {
-            var result = _trick.AddTrick("test name", "test desc", "test url");
-            var result2 = _trick.AddTrick("test name2", "test desc2", "test url");
-            Assert.IsFalse(result2.Success, "Result success should be false");
-            Assert.AreEqual(result2.Message, "Duplicate VideoURL of tricks not allowed");
-        }
+        //[Test]
+        //public void duplicate_videourl_of_new_trick_should_fail_to_save() {
+        //    var result = _trick.AddTrick("test name", "test desc", "test url");
+        //    var result2 = _trick.AddTrick("test name2", "test desc2", "test url");
+        //    Assert.IsFalse(result2.Success, "Result success should be false");
+        //    Assert.AreEqual(result2.Message, "Duplicate VideoURL of tricks not allowed");
+        //}
 
-        [Test]
-        public void description_should_be_more_than_5_chars_long() {
-            string name = "test name";
-            var result = _trick.AddTrick(name, "test", "test url");
-            Assert.IsFalse(result.Success, "Result success should be false");
-            Assert.AreEqual(result.Message, "Need more than 5 characters in the description");
-        }
+        //[Test]
+        //public void description_should_be_more_than_5_chars_long() {
+        //    string name = "test name";
+        //    var result = _trick.AddTrick(name, "test", "test url");
+        //    Assert.IsFalse(result.Success, "Result success should be false");
+        //    Assert.AreEqual(result.Message, "Need more than 5 characters in the description");
+        //}
 
         //categories
         [Test]

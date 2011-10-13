@@ -73,7 +73,7 @@ namespace PubTricks.Web.Areas.Admin.Controllers
             }
             catch (Exception ex)
             {
-                TempData["Error"] = "There was a problem editing this record: " + ex.Message;
+                TempData["Error"] = "There was an error editing this trick: " + ex.Message;
                 return View(itemToUpdate);
             }
         }

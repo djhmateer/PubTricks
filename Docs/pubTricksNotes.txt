@@ -345,6 +345,16 @@ TODO Tuesday
 			validation
 				TricksSpecs and on view (HTML5)
 		
+			default values eg Votes = 0
+				where to handle
+					if the form returns a number as votes, we want to handle it fine
+					if the form returns a string with non numberics we want to handle it.
+					
+				build out and simplify tests / code
+					make controller talk to massive more!
+					
+				if editing it is not letting us save, as there is a 'duplicate' name in the db.
+		
 			routing - what if routing is wrong
 			http://bradwilson.typepad.com/blog/2010/07/testing-routing-and-url-generation-in-aspnet-mvc.html
 				
