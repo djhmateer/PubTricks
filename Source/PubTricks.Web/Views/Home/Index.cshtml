@@ -60,7 +60,7 @@
         <div class="boxes box inside">
             <!--top 5 latest videos sorted by date-->
             <div id="home-tab-latest" class="list">
-                @foreach (var item in Model.AllTricksNewestFirst) {
+                @foreach (var item in Model.TenTricksNewestFirst) {
                   <div class="post block">
                     <div class="tab-image-block">
                         <a href="/tricks/@URL.MakeSpacesMinuses(@item.Name)" title="@item.Name">
@@ -82,7 +82,7 @@
 
             <!--most popular-->
             <div id="home-tab-pop" class="list">
-                @foreach (var item in Model.AllTricksMostPopularFirst) {
+                @foreach (var item in Model.TenTricksMostPopularFirst) {
                  <div class="post block">
                     <div class="tab-image-block">
                         <a href="/tricks/@URL.MakeSpacesMinuses(@item.Name)" title="@item.Name">

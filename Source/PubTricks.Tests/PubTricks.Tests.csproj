@@ -57,8 +57,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Functionals\AdminControllersTests.cs" />
-    <Compile Include="Functionals\TricksControllerTests.cs" />
+    <Compile Include="Functionals\AdminTricksControllerTests.cs" />
+    <Compile Include="Functionals\DetailTricksControllerTests.cs" />
     <Compile Include="Functionals\HomeControllerTests.cs" />
     <Compile Include="Infrastructure\FakeLogger.cs" />
     <Compile Include="Infrastructure\TestLogger.cs" />

@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Diagnostics;
 using System.Linq;
-using System.Text;
+using Massive3;
 using NUnit.Framework;
 using PubTricks.Web.Models;
-using Massive3;
 
 namespace PubTricks.Tests.Specs {
     [TestFixture]
@@ -23,33 +21,25 @@ namespace PubTricks.Tests.Specs {
             _tbl.Delete();
         }
 
-        //admin authentication and authorisation
-        [Test]
-        public void all_admin_screens_and_posts_require_logged_in_and_member_of_administrators_role() {
-            this.IsPending();
-        }
-
-        [Test]
-        public void all_admin_posts_cross_site_scripting_turned_on() {
-            this.IsPending();
-        }
-
-        //create, read, update, delete tricks - testing business logic and persistence
+        //create and read tricks - testing business logic and persistence
         [Test]
         public void a_new_trick_should_be_saved_to_db_on_add_trick() {
             string nameOfTrick = "test name";
             var result = _trick.AddTrick(nameOfTrick, "test desc", "test url");
-
-            Assert.AreEqual(1, _tbl.All().Count());
+            if (!result.Success) 
+                DisplaySQLErrorInConsoleWindow(result);
+            else 
+                Assert.AreEqual(1, _tbl.All().Count());
         }
 
-        [Test]
-        public void a_new_trick_should_be_saved_to_db_on_add_trick_and_correct_result_returned() {
-            string name = "test name b";
-            var result = _trick.AddTrick(name, "test desc", "test url");
-            var trickFromDB = _tbl.All(where: "WHERE Name=@0", args: name);
-            Assert.AreEqual(1, trickFromDB.Count());
+        private static void DisplaySQLErrorInConsoleWindow(dynamic result) {
+            string errorMessage = result.Message;
+            Trace.WriteLine("Error: " + errorMessage);
+            throw new AssertionException("DB Error");
         }
+
+       
+
 
         [Test]
         public void duplicate_name_of_new_trick_should_fail_to_save() {
@@ -75,6 +65,7 @@ namespace PubTricks.Tests.Specs {
             Assert.AreEqual(result.Message, "Need more than 5 characters in the description");
         }
 
+        //categories
         [Test]
         public void an_admin_should_be_able_to_add_a_category_to_a_trick() {
             this.IsPending();

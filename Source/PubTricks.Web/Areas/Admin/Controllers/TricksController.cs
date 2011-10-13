@@ -20,11 +20,13 @@ namespace PubTricks.Web.Areas.Admin.Controllers
             return View(_tricksTable.All());
         }
 
+        [Authorize(Roles = "Administrator")]
         public ActionResult Details(int id)
         {
             return View(_tricksTable.FindBy(ID: id, schema: true));
         }
 
+        [Authorize(Roles = "Administrator")]
         public ActionResult Create()
         {
             return View(_tricksTable.Prototype);
@@ -32,16 +34,20 @@ namespace PubTricks.Web.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator")]
         public ActionResult Create(FormCollection collection)
         {
             var itemToCreate = _tricksTable.CreateFrom(collection);
             try
             {
+                //validation enforced on model (as an override on Massive)
                 _tricksTable.Insert(itemToCreate);
+
                 return RedirectToAction("Index");
             }
             catch (Exception ex)
             {
+                var x = 1;
                 TempData["Error"] = "There was an error adding the trick: "+ ex.Message;
                 return View(itemToCreate);
             }

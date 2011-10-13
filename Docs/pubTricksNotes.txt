@@ -336,8 +336,22 @@ TODO Tuesday
 
 3.5  TDD/BDD focus on the whole site - what can/can't should/shouldn't I test?
 			what if URL is wrong?
-					problem: tests fail if of type dynamic in Tricks...  trickFromDB is of type:  dynamic {Massive.DynamicModel.Query}
-										if set DynamicModel.. then trickFromDB is of type: IEnumerable<dynamic>
+				
+				
+	Testing Strategy in MVC3
+		look at unit test framework for mvc3
+			TDD/BDD MVC3
+			
+			validation
+				TricksSpecs and on view (HTML5)
+		
+			routing - what if routing is wrong
+			http://bradwilson.typepad.com/blog/2010/07/testing-routing-and-url-generation-in-aspnet-mvc.html
+				
+			
+		testing in MVC3 google
+		types of testing specs, functional..higher?
+		massive test (lower)
 
 4. Admin BDD features
 		fix up admin so can enter all details in create screen as well as edit (merge two together?)
@@ -349,6 +363,27 @@ TODO Tuesday
 		
 5. Admin CSS strip out
 
+
+Chris Feedback
+	What should be in Model
+	What should be in Controller
+	How stuff is displayed in view
+		picture of how query is done and what the types are.
+	
+	Validation on server side if html5 doesn't work
+		in model
+	Validation on database?
+	
+	run in offline mode for HP
+		jQuery
+			put in a switch for offline.
+		videos?
+		
+	Testing
+		start with file new project and do TDD..
+			doesn't matter if can't fill in tests?
+
+			
 UserVoice for feedback.
 actually do a facebook like thing.
 

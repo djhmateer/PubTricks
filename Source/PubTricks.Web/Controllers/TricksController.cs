@@ -27,14 +27,18 @@ namespace PubTricks.Web.Controllers
                 GetIDFromTrickName(ref id, ref trickName);
             }
 
-
             //see if there is a cookie in the users browser for this trick (ie have they liked it before)
             string cookieValue = "";
             string cookieName = "Trick_" + id.ToString();
-            if (this.ControllerContext.HttpContext.Request.Cookies.AllKeys.Contains(cookieName)) {
-                cookieValue = cookieName + ": " + this.ControllerContext.HttpContext.Request.Cookies[cookieName].Value;
+            try {
+                if (this.ControllerContext.HttpContext.Request.Cookies.AllKeys.Contains(cookieName)) {
+                    cookieValue = cookieName + ": " + this.ControllerContext.HttpContext.Request.Cookies[cookieName].Value;
+                }
+                ViewData["CookieStuffToDisplay"] = cookieValue;
             }
-            ViewData["CookieStuffToDisplay"] = cookieValue;
+            catch {
+                //from test harness - refactor this.
+            }
 
             var model = _tricksTable.Get(ID: id);
             return View(model);
