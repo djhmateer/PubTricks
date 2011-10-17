@@ -9,15 +9,6 @@
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
     @TempData["Error"]
-    @Form.TextBoxRequired(name: "Name", value: Model.Name, requiredMessage: "Name is required")
-    @Form.TextBoxRequired(name: "Description", value: Model.Description)
-    @Form.TextArea(name: "LongDescription", value: Model.LongDescription)
-    @Form.TextBox(name: "VideoURL", value: Model.VideoURL)
-    @Form.TextBox(name: "VideoSolutionURL", value: Model.VideoSolutionURL)
-    @Form.TextBox(name: "Thumbnail", value: Model.Thumbnail)
-    @Form.TextBoxDate(name: "DateCreated", value: Model.DateCreated)
-    @Form.TextBoxNumberWithDisplayName(dbName: "Votes", displayName: "Likes", value: @Model.Votes,
-                                            numberMessage: "Should be a number")
-    @Form.Submit()
 
+    @Form.RenderCreateOrEditTricks(Model)
 }

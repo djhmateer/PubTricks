@@ -9,6 +9,7 @@ using Massive;
 using PubTricks.Web.Models;
 
 namespace PubTricks.Tests.Functionals {
+    [TestFixture]
     public class AdminTricksControllerTests : TestBase {
         dynamic _tricksTable;
 
@@ -26,211 +27,338 @@ namespace PubTricks.Tests.Functionals {
             //load database with test data going straight to massive
             //validation in tricks will be called when doing insert
             var result = _tricksTable.Insert(new {
-            Name = "Pen Trick",
-            Description = "This is the pen trick description",
-            VideoURL = @"www.youtube.com/v/OQXZXat-RPQ?version=3",
-            Votes = "11",
-            Thumbnail = @"PenTrickImage-100x100.png",
-            LongDescription = @"The pen trick is one of my favourite all time tricks.. if there is one you remember try this one!",
-            VideoSolutionURL= @"www.youtube.com/v/ILEWo_-Fib8?version=3"
+                Name = "Pen Trick",
+                Description = "This is the pen trick description",
+                VideoURL = @"www.youtube.com/v/OQXZXat-RPQ?version=3",
+                Votes = "11",
+                Thumbnail = @"PenTrickImage-100x100.png",
+                LongDescription = @"The pen trick is one of my favourite all time tricks.. if there is one you remember try this one!",
+                VideoSolutionURL = @"www.youtube.com/v/ILEWo_-Fib8?version=3"
+            });
+
+            result = _tricksTable.Insert(new {
+                Name = "Uncross Your Arms",
+                Description = "Uncross your arms description - very funny to watch",
+                VideoURL = @"www.youtube.com/v/2_3BJq5srL4?version=3",
+                Votes = "7",
+                Thumbnail = @"UncrossArms-100x100.png",
+                LongDescription = @"This is a good trick especially for kids or friends who have drunk more than 4 pints of beer (or 2 pints of cider.. never again...)",
+                VideosolutionURL = @"www.youtube.com/v/IyctbzxAA7U?version=3"
             });
         }
-            //var result = _tricksTable.AddTrick(name: "Uncross Your Arms", description: "Uncross your arms description - very funny to watch",
-            //    videourl: @"www.youtube.com/v/2_3BJq5srL4?version=3", votes: 7, thumbnail: @"UncrossArms-100x100.png",
-            //    longdescription: @"This is a good trick especially for kids or friends who have drunk more than 4 pints of beer (or 2 pints of cider.. never again...)",
-            //    videosolutionurl: @"www.youtube.com/v/IyctbzxAA7U?version=3");
 
-            //result = _tricksTable.AddTrick(name: "Pen Trick", description: "This is the pen trick description",
-            //    videourl: @"www.youtube.com/v/OQXZXat-RPQ?version=3", votes: 11, thumbnail: @"PenTrickImage-100x100.png",
-            //    longdescription: @"The pen trick is one of my favourite all time tricks.. if there is one you remember try this one!",
-            //    videosolutionurl: @"www.youtube.com/v/ILEWo_-Fib8?version=3");
-
-            //result = _tricksTable.AddTrick(name: "Beer trap", description: "Beer trap description",
-            //    videourl: @"www.youtube.com/v/NsXyrPN-eNo?version=3", votes: 6, thumbnail: @"Beer-100x100.png",
-            //    longdescription: @"Best to do this one after your mates have had a lot to drink!");
-
-            //result = _tricksTable.AddTrick(name: "Foot and Hand Circles", description: "Foot and Hand circles description",
-            //    videourl: @"www.youtube.com/v/TsGhmK8Zgtc?version=3", votes: 3, thumbnail: @"FootAndHand-100x100.png",
-            //    longdescription: @"Foot and hand circles requires some serious concentration!");
-
-            //result = _tricksTable.AddTrick(name: "Coin Trick", description: "The amazing coin trick",
-            //    videourl: @"www.youtube.com/v/-hnnpzBSnU8?version=3", votes: 8, thumbnail: @"CoinTrick-100x100.png",
-            //    longdescription: @"The coin trick is a good one!",
-            //    videosolutionurl: @"www.youtube.com/v/rlhAj5_i56I?version=3");
-
-        //create trick name
+        //create trick - name
         [Test]
-        public void new_trick_should_be_saved_on_and_correct_result_returned() {
-            TricksController controller = new TricksController();
-            FormCollection formCollection = new FormCollection() {
-                                                                    { "Name", "test" },
-                                                                    {"Description", "test descr"},
-                                                                    { "Votes", "4" }
-                                                                 };
-            ViewResult result = controller.Create(formCollection) as ViewResult;
+        public void new_trick_should_be_saved_without_error() {
+            var controller = new TricksController();
+            var formCollection = new FormCollection() {
+                                                        { "Name", "asdf" },
+                                                        { "Description", "test descr"},
+                                                        { "Votes", "4" },
+                                                        { "VideoURL", "" }
+                                                      };
+            var result = controller.Create(formCollection) as ViewResult;
+
             string errorMessage = "";
-            try {
+            if (result != null)
                 errorMessage = result.TempData["Error"].ToString();
-            }
-            catch { }
-            Assert.IsNullOrEmpty(errorMessage);
+            Assert.IsEmpty(errorMessage);
         }
 
         [Test]
         public void a_new_trick_should_not_be_saved_when_empty_trick_name() {
-            TricksController controller = new TricksController();
-            FormCollection formCollection = new FormCollection() {
+            var controller = new TricksController();
+            var formCollection = new FormCollection() {
                                                                     { "Name", "" },
                                                                     {"Description", "test descr"},
-                                                                    { "Votes", "2" }
-                                                                 };
-            ViewResult result = controller.Create(formCollection) as ViewResult;
+                                                                    { "Votes", "2" },
+                                                                    { "VideoURL", "" }
+                                                       };
+            var result = controller.Create(formCollection) as ViewResult;
             var errorMessage = result.TempData["Error"];
             Assert.AreEqual("There was an error adding the trick: Can't insert: Name is required", errorMessage);
         }
 
         [Test]
         public void a_new_trick_should_not_be_saved_to_db_when_empty_trick_description() {
-            TricksController controller = new TricksController();
-            FormCollection formCollection = new FormCollection() {
+            var controller = new TricksController();
+            var formCollection = new FormCollection() {
                                                                     { "Name", "test" },
                                                                     { "Description", "" },
-                                                                    { "Votes", "2" }
+                                                                    { "Votes", "2" },
+                                                                    { "VideoURL", "" }
                                                                  };
-            ViewResult result = controller.Create(formCollection) as ViewResult;
+            var result = controller.Create(formCollection) as ViewResult;
             var errorMessage = result.TempData["Error"];
             Assert.AreEqual("There was an error adding the trick: Can't insert: Description is required; Need more than 5 characters in the description", errorMessage);
         }
 
         [Test]
         public void a_new_trick_should_not_be_saved_to_db_when_an_existing_trick_in_the_db_has_the_duplicate_name() {
-            TricksController controller = new TricksController();
-            FormCollection formCollection = new FormCollection() {
+            var controller = new TricksController();
+            var formCollection = new FormCollection() {
                                                                     { "Name", "test" },
                                                                     { "Description", "test desc" },
-                                                                    { "Votes", "1" }
+                                                                    { "Votes", "1" },
+                                                                    { "VideoURL", "" }
                                                                  };
-            FormCollection formCollection2 = new FormCollection() {
+            var formCollection2 = new FormCollection() {
                                                                     { "Name", "test" },
                                                                     { "Description", "test desc2" },
-                                                                    { "Votes", "2" }
+                                                                    { "Votes", "2" },
+                                                                    { "VideoURL", "" }
                                                                  };
-            ViewResult result = controller.Create(formCollection) as ViewResult;
-            ViewResult result2 = controller.Create(formCollection2) as ViewResult;
+            var result = controller.Create(formCollection) as ViewResult;
+            var result2 = controller.Create(formCollection2) as ViewResult;
 
             var errorMessage = result2.TempData["Error"];
             Assert.AreEqual("There was an error adding the trick: Can't insert: Duplicate names of tricks not allowed", errorMessage);
         }
 
-
         [Test]
         public void a_new_trick_should_not_be_saved_to_db_when_an_existing_trick_in_the_db_has_duplicate_videourl() {
-            TricksController controller = new TricksController();
-            FormCollection formCollection = new FormCollection() {
+            var controller = new TricksController();
+            var formCollection = new FormCollection() {
                                                                     { "Name", "test" },
                                                                     { "Description", "test desc" },
                                                                     { "Votes", "1" },
                                                                     { "VideoURL", "www.youtube.com/v/OQXZXat-RPQ?version=3" }
                                                                  };
-            FormCollection formCollection2 = new FormCollection() {
+            var formCollection2 = new FormCollection() {
                                                                     { "Name", "test2" },
                                                                     { "Description", "test desc2" },
                                                                     { "Votes", "2" },
                                                                     { "VideoURL", "www.youtube.com/v/OQXZXat-RPQ?version=3" }
                                                                  };
-            ViewResult result = controller.Create(formCollection) as ViewResult;
-            ViewResult result2 = controller.Create(formCollection2) as ViewResult;
+            var result = controller.Create(formCollection) as ViewResult;
+            var result2 = controller.Create(formCollection2) as ViewResult;
 
-            var errorMessage = result2.TempData["Error"]; 
+            var errorMessage = result2.TempData["Error"];
             Assert.AreEqual("There was an error adding the trick: Can't insert: Duplicate VideoURL of tricks not allowed", errorMessage);
         }
 
         [Test]
         public void a_new_trick_should_not_be_saved_to_db_when_description_is_less_than_or_equal_to_five_chars_long() {
-            TricksController controller = new TricksController();
-            FormCollection formCollection = new FormCollection() {
+            var controller = new TricksController();
+            var formCollection = new FormCollection() {
                                                                     { "Name", "test" },
                                                                     { "Description", "testd" },
-                                                                    { "Votes", "1" }
+                                                                    { "Votes", "1" },
+                                                                    { "VideoURL", "" }
                                                                  };
-           
-            ViewResult result = controller.Create(formCollection) as ViewResult;
+
+            var result = controller.Create(formCollection) as ViewResult;
 
             var errorMessage = result.TempData["Error"];
             Assert.AreEqual("There was an error adding the trick: Can't insert: Need more than 5 characters in the description", errorMessage);
         }
 
-        //create trick votes
+        //create trick - votes
         [Test]
         public void a_new_trick_should_be_saved_to_db_when_empty_votes_and_should_default_to_zero_votes() {
-            TricksController controller = new TricksController();
-            FormCollection formCollection = new FormCollection() {
+            var controller = new TricksController();
+            var formCollection = new FormCollection() {
                                                                     { "Name", "test" },
                                                                     { "Description", "test desc" },
-                                                                    { "Votes", "" }
+                                                                    { "Votes", "" },
+                                                                    { "VideoURL", "" }
+
                                                                  };
-            ViewResult result = controller.Create(formCollection) as ViewResult;
-            //if no error then tempdate error wont exist and will give a nullreference exception
-            string errorMessage="";
-            try {
+            var result = controller.Create(formCollection) as ViewResult;
+            string errorMessage = "";
+            if (result != null)
                 errorMessage = result.TempData["Error"].ToString();
-            }
-            catch { }
-            Assert.IsNullOrEmpty(errorMessage);
+            Assert.IsEmpty(errorMessage);
         }
 
         [Test]
         public void a_new_trick_should_not_be_saved_to_db_on_add_trick_when_votes_are_a_non_number() {
-            TricksController controller = new TricksController();
-            FormCollection formCollection = new FormCollection() {
+            var controller = new TricksController();
+            var formCollection = new FormCollection() {
                                                                     { "Name", "test" },
                                                                     {"Description", "test descr"},
-                                                                    { "Votes", "x" }
+                                                                    { "Votes", "x" },
+                                                                    { "VideoURL", "" }
                                                                  };
-            ViewResult result = controller.Create(formCollection) as ViewResult;
-            string errorMessage = "";
-            try {
-                errorMessage = result.TempData["Error"].ToString();
-            }
-            catch { }
+            var result = controller.Create(formCollection) as ViewResult;
+            string errorMessage = GetErrorMessageIfThereIsOne(result);
             Assert.AreEqual("There was an error adding the trick: Can't insert: Votes should be a number", errorMessage);
         }
 
-        //edit trick name
+        private static string GetErrorMessageIfThereIsOne(ViewResult result) {
+            string errorMessage = "";
+            if (result != null)
+                errorMessage = result.TempData["Error"].ToString();
+            return errorMessage;
+        }
+
+        //create trick - date created
         [Test]
-        public void an_existing_trick_should_not_be_saved_to_db_when_empty_trick_name_is_passed() {
+        public void a_new_trick_should_be_saved_to_db_when_date_created_field_is_blank_and_set_to_now() {
+            var controller = new TricksController();
+            var formCollection = new FormCollection() {
+                                                            { "Name", "test" },
+                                                            { "Description", "test desc" },
+                                                            { "Votes", "" },
+                                                            { "VideoURL", "" },
+                                                            { "DateCreated", ""}
+                                                      };
+            //on success result is always null
+            var result = controller.Create(formCollection) as ViewResult;
+            
+            //can't find a way of passing back data easiy
+            var modelJustSaved = _tricksTable.Get(Name: "test");
+
+            DateTime dateCreatedAsDateTime = Convert.ToDateTime(modelJustSaved.DateCreated);
+            var dateCreatedAsDateTimeShortFormat = dateCreatedAsDateTime.ToString("dd/MM/yyyy HH:mm");
+
+            // 22/08/2011 23:05 once in a while this may fail.. refactor
+            Assert.AreEqual(DateTime.Now.ToString("dd/MM/yyyy HH:mm"), dateCreatedAsDateTimeShortFormat);
+
+            //on fail result holds the errors list
+            string errorMessage = "";
+            if (result != null)
+                errorMessage = result.TempData["Error"].ToString();
+            Assert.IsEmpty(errorMessage);
+        }
+
+        [Test]
+        public void a_new_trick_should_be_saved_to_db_when_date_created_field_is_filled_in_nz_date_format() {
+            var controller = new TricksController();
+            var formCollection = new FormCollection() {
+                                                            { "Name", "test" },
+                                                            { "Description", "test desc" },
+                                                            { "Votes", "" },
+                                                            { "VideoURL", "" },
+                                                            { "DateCreated", "15/10/2011"}
+                                                      };
+            //on success result is always null
+            var result = controller.Create(formCollection) as ViewResult;
+
+            //can't find a way of passing back data easiy
+            var modelJustSaved = _tricksTable.Get(Name: "test");
+
+            DateTime dateCreatedAsDateTime = Convert.ToDateTime(modelJustSaved.DateCreated);
+            var dateCreatedAsDateTimeShortFormat = dateCreatedAsDateTime.ToString("dd/MM/yyyy");
+
+            // 22/08/2011 23:05 once in a while this may fail.. refactor
+            Assert.AreEqual("15/10/2011", dateCreatedAsDateTimeShortFormat);
+
+            //on fail result holds the errors list
+            string errorMessage = "";
+            if (result != null)
+                errorMessage = result.TempData["Error"].ToString();
+            Assert.IsEmpty(errorMessage);
+        }
+
+        [Test]
+        public void an_existing_trick_should_be_saved_to_db_when_everything_is_good_and_date_in_nz() {
             PopulateDBWithTestData();
-            TricksController controller = new TricksController();
+            var controller = new TricksController();
             //get id of Pen Trick
             var model = _tricksTable.Get(Name: "Pen Trick");
             int idOfPenTrick = model.ID;
-            FormCollection formCollection = new FormCollection() {
-                                                                    { "Name", "" },
-                                                                     {"Description", "test descr"},
-                                                                     { "Votes", "2" }
-                                                                 };
-            ViewResult result = controller.Edit(idOfPenTrick, formCollection) as ViewResult;
+            var formCollection = new FormCollection() {
+                                                        { "ID", idOfPenTrick.ToString() },
+                                                        { "Name", "Pen Trick" },
+                                                        { "Description", "test descrxxx"},
+                                                        { "Votes", "2" },
+                                                        { "VideoURL", "" },
+                                                        { "DateCreated", "15/10/2011"}
+                                                      };
+            var result = controller.Edit(idOfPenTrick, formCollection) as ViewResult;
+            string errorMessage = GetErrorMessageIfThereIsOne(result);
+            Assert.IsEmpty(errorMessage);
+
+            var modelJustSaved = _tricksTable.Get(Name: "Pen Trick");
+            DateTime dateCreatedAsDateTime = Convert.ToDateTime(modelJustSaved.DateCreated);
+            var dateCreatedAsDateTimeShortFormat = dateCreatedAsDateTime.ToString("dd/MM/yyyy HH:mm");
+
+            Assert.AreEqual("15/10/2011 00:00", dateCreatedAsDateTimeShortFormat);
+        }
+
+        //edit trick name - in fact validation is mostly the same on edit except on duplicate name and videourl.
+        [Test]
+        public void an_existing_trick_should_be_saved_to_db_when_everything_is_good() {
+            PopulateDBWithTestData();
+            var controller = new TricksController();
+            //get id of Pen Trick
+            var model = _tricksTable.Get(Name: "Pen Trick");
+            int idOfPenTrick = model.ID;
+            var formCollection = new FormCollection() {
+                                                        { "ID", idOfPenTrick.ToString() },
+                                                        { "Name", "Pen Trick" },
+                                                        { "Description", "test descrxxx"},
+                                                        { "Votes", "2" },
+                                                        { "VideoURL", "" }
+                                                      };
+            var result = controller.Edit(idOfPenTrick, formCollection) as ViewResult;
+            string errorMessage = GetErrorMessageIfThereIsOne(result);
+            Assert.IsEmpty(errorMessage);
+        }
+
+        [Test]
+        public void an_existing_trick_should_not_be_saved_to_db_when_empty_trick_name_is_passed() {
+            PopulateDBWithTestData();
+            var controller = new TricksController();
+            //get id of Pen Trick
+            var model = _tricksTable.Get(Name: "Pen Trick");
+            int idOfPenTrick = model.ID;
+            var formCollection = new FormCollection() {
+                                                        { "Name", "" },
+                                                        { "Description", "test descr"},
+                                                        { "Votes", "2" },
+                                                        { "VideoURL", "" }
+                                                      };
+            var result = controller.Edit(idOfPenTrick, formCollection) as ViewResult;
             var errorMessage = result.TempData["Error"];
             Assert.AreEqual("There was an error editing this trick: Can't Update: Name is required", errorMessage);
         }
 
-       
+        [Test]
+        public void an_existing_trick_should_not_be_saved_to_db_when_name_changed_to_an_existing_one_in_the_db() {
+            //puts in Pen Trick, and Uncross Your Arms
+            PopulateDBWithTestData();
+            var controller = new TricksController();
+            var model = _tricksTable.Get(Name: "Uncross Your Arms");
+            int idOfUncrossYourArms = model.ID;
 
-        //[Test]
-        //public void home_controller_should_return_a_result() {
-        //    HomeController controller = new HomeController(new FakeLogger());
-        //    ViewResult result = controller.Index() as ViewResult;
-        //    //Assert.AreEqual("Welcome to ASP.NET MVC!", result.ViewBag.Message);
-        //    Assert.IsNotNull(result);
-        //}
+            var formCollection = new FormCollection() {
+                                                        { "ID", idOfUncrossYourArms.ToString() },
+                                                        //change Uncross Your Arms to Pen Trick - not allowed
+                                                        { "Name", "Pen Trick" },
+                                                        { "Description", "test descr"},
+                                                        { "Votes", "2" },
+                                                        { "VideoURL", "" }
+                                                      };
+            var result = controller.Edit(idOfUncrossYourArms, formCollection) as ViewResult;
+            string errorMessage = GetErrorMessageIfThereIsOne(result);
+            Assert.AreEqual("There was an error editing this trick: Can't Update: Duplicate names of tricks not allowed", errorMessage);
+        }
 
-        //[Test]
-        //public void tricks_controller_should_return_a_result() {
-        //    TricksController controller = new TricksController();
-        //    ViewResult result = controller.Index() as ViewResult;
-        //    //Assert.AreEqual("Welcome to ASP.NET MVC!", result.ViewBag.Message);
-        //    Assert.IsNotNull(result);
-        //}
+        [Test]
+        public void an_existing_trick_should_not_be_saved_to_db_when_videourl_changed_to_an_existing_one_in_the_db() {
+            //puts in Pen Trick, and Uncross Your Arms
+            PopulateDBWithTestData();
+            var controller = new TricksController();
+            var model = _tricksTable.Get(Name: "Uncross Your Arms");
+            int idOfUncrossYourArms = model.ID;
+
+            string videoURLOfPenTrick = @"www.youtube.com/v/OQXZXat-RPQ?version=3";
+
+            var formCollection = new FormCollection() {
+                                                        { "ID", idOfUncrossYourArms.ToString() },
+                                                        //change Uncross Your Arms to Pen Trick - not allowed
+                                                        { "Name", "Uncross Your Arms" },
+                                                        { "Description", "test descr"},
+                                                        { "Votes", "2" },
+                                                        { "VideoURL", videoURLOfPenTrick }
+                                                      };
+            var result = controller.Edit(idOfUncrossYourArms, formCollection) as ViewResult;
+            string errorMessage = GetErrorMessageIfThereIsOne(result);
+            Assert.AreEqual("There was an error editing this trick: Can't Update: Duplicate VideoURL of tricks not allowed", errorMessage);
+        }
+
 
         //trick admin authentication and authorisation
         [Test]
@@ -242,12 +370,23 @@ namespace PubTricks.Tests.Functionals {
         public void all_trick_admin_posts_require_cross_site_scripting_turned_on() {
             // this.IsPending();
         }
-
-        //trick crud on admin
-        [Test]
-        public void create_trick_inserts_trick_into_db() {
-
-            //this.IsPending();
-        }
+        
     }
 }
+//result = _tricksTable.AddTrick(name: "Pen Trick", description: "This is the pen trick description",
+//    videourl: @"www.youtube.com/v/OQXZXat-RPQ?version=3", votes: 11, thumbnail: @"PenTrickImage-100x100.png",
+//    longdescription: @"The pen trick is one of my favourite all time tricks.. if there is one you remember try this one!",
+//    videosolutionurl: @"www.youtube.com/v/ILEWo_-Fib8?version=3");
+
+//result = _tricksTable.AddTrick(name: "Beer trap", description: "Beer trap description",
+//    videourl: @"www.youtube.com/v/NsXyrPN-eNo?version=3", votes: 6, thumbnail: @"Beer-100x100.png",
+//    longdescription: @"Best to do this one after your mates have had a lot to drink!");
+
+//result = _tricksTable.AddTrick(name: "Foot and Hand Circles", description: "Foot and Hand circles description",
+//    videourl: @"www.youtube.com/v/TsGhmK8Zgtc?version=3", votes: 3, thumbnail: @"FootAndHand-100x100.png",
+//    longdescription: @"Foot and hand circles requires some serious concentration!");
+
+//result = _tricksTable.AddTrick(name: "Coin Trick", description: "The amazing coin trick",
+//    videourl: @"www.youtube.com/v/-hnnpzBSnU8?version=3", votes: 8, thumbnail: @"CoinTrick-100x100.png",
+//    longdescription: @"The coin trick is a good one!",
+//    videosolutionurl: @"www.youtube.com/v/rlhAj5_i56I?version=3");

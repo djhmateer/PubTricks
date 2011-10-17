@@ -349,7 +349,75 @@ TODO Tuesday
 				where to handle
 					if the form returns a number as votes, we want to handle it fine
 					if the form returns a string with non numberics we want to handle it.
+		
+			[doing]validation and business logic
+				Insert
+				Update
+					both call isValid.. passing in an expando object
+						which clears the errors list - Errors.
+						then calls Validate passing in the object
+						
+						Save calls isValid
+			
+			****
+			Monday
+			
+			[done]like is calling validator and failing
+				because it is doing an update
+				
+				ID and Votes an int32 when coming from like
+					When coming from Create/Update form everything is a string.
+					seems like everything works when pass as string into massive and it works it out from there.
+
+			[nope]rename Details
+			
+			[done]date stuff
+				[nope]question on stackoverflow on getting back saved data.
+					why is the result of a save not returning back the object that is saved?
+				renders okay on front index page and details page.
+				and admin index page.'
+				and admin edit page
+					but fails to update
+						comes in from the FormCollection as all strings.
+						CreateFrom method makes everything strings.
+						
+						easiest thing to do is convert from NZ to US date format.
 					
+				coming out of Massive as a System.DateTime... so this works fine as culture is taken into consideration
+				
+				
+				but when going back into Massive, the form post, everything is a string so have to convert to US
+					
+				
+			Week plan
+				logging when there is a problem and email send?
+				
+				diagram of how stuff works - especially types of values being passed
+				get working offline
+					have downloaded mp4 videos
+					
+				watch orm presentation
+					
+				BDD stuff
+				build out backend helpers
+					thumbnail
+					sizes of text boxes
+					make it look professional
+				Put on GitHub?
+				Do a demo talk
+			
+			Dates on server are rendered in US format!
+			
+			put on business logic text on create/edit form
+		
+			do a review of what done already in code
+				refactor tests
+				can edit, so that video URL is the same as  another one.
+				
+						
+			bug fix on front end
+				write a test to catch it
+		
 				build out and simplify tests / code
 					make controller talk to massive more!
 					

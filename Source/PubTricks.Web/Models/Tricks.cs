@@ -11,32 +11,77 @@ namespace PubTricks.Web.Models {
         public Tricks() : base("PubTricks", "Tricks", "ID") { }
 
         public override void Validate(dynamic item) {
-            //for testing purposes create dynamic properties if they don't exist
-            //refactor into test code
             var dict = (IDictionary<String, object>)item;
-            if (!dict.ContainsKey("VideoURL"))
-                item.VideoURL = "";
 
-            //we came from edit or delete
-            bool editOrDelMode = false;
+            //we came from edit / or like button is pressed which increments and updates which calls this.
+            bool editMode = false;
             if (dict.ContainsKey("ID"))
-                editOrDelMode = true; 
+                editMode = true; 
 
             //name
             this.ValidatesPresenceOf(item.Name, "Name is required");
 
-            //is name of a trick is in the db already
-            var trickFromDB = this.All(where: "WHERE Name=@0", args: item.Name);
-            if (Enumerable.Count(trickFromDB) > 0 && !editOrDelMode) {
-                this.Errors.Add("Duplicate names of tricks not allowed");
+            //duplicate name check
+            //are we in editMode and name still the same
+            bool isNameTheSame = true;
+            if (editMode) {
+                dynamic trickFromDBByID = new ExpandoObject();
+
+                //hack for votes
+                //var thing = item.ID;
+                //var typeOfId = thing.GetType().Name;
+                //if (typeOfId == "Int32") {
+                //    var x = 1;
+                //}
+                var numerics = new string[] { "Int32", "Int16", "Int64", "Decimal", "Double", "Single", "Float" };
+                //if (numerics.Contains(type)) {
+                //    item.ID = thing.ToString();
+                //}
+
+
+                var trickFromDBList = this.All(where: "WHERE ID=@0", args: item.ID);
+                //get the only one
+                foreach (var item2 in trickFromDBList) {
+                    trickFromDBByID = item2;
+                }
+                if (trickFromDBByID.Name != item.Name)
+                    isNameTheSame = false;
             }
 
-            //is videourl in db already
-            trickFromDB = this.All(where: "WHERE VideoURL=@0", args: item.VideoURL);
-            //duplicate empty videoURLs are allowed
-            if (item.VideoURL != "") {
-                if (Enumerable.Count(trickFromDB) > 0 && !editOrDelMode) {
-                    this.Errors.Add("Duplicate VideoURL of tricks not allowed");
+            //if editmode, and name the same, do nothing, otherwise check not a duplicate
+            if (editMode && isNameTheSame) { }
+            else {
+                //is name of a trick is in the db already
+                var trickFromDB = this.All(where: "WHERE Name=@0", args: item.Name);
+                if (Enumerable.Count(trickFromDB) > 0) {
+                    this.Errors.Add("Duplicate names of tricks not allowed");
+                }
+            }
+
+
+            //duplicate videourl check
+            //are we in editMode and video url is still the same
+            bool isVideoURLSame = true;
+            if (editMode) {
+                dynamic trickFromDBByID = new ExpandoObject();
+                var trickFromDBList = this.All(where: "WHERE ID=@0", args: item.ID);
+                //get the only one
+                foreach (var item2 in trickFromDBList) {
+                    trickFromDBByID = item2;
+                }
+                if (trickFromDBByID.VideoURL != item.VideoURL)
+                    isVideoURLSame = false;
+            }
+
+            //if editmode, and videourl the same, do nothing, otherwise check not a duplicate
+            if (editMode && isVideoURLSame) { }
+            else {
+                var trickFromDB2 = this.All(where: "WHERE VideoURL=@0", args: item.VideoURL);
+                //duplicate empty videoURLs are allowed
+                if (item.VideoURL != "") {
+                    if (Enumerable.Count(trickFromDB2) > 0) {
+                        this.Errors.Add("Duplicate VideoURL of tricks not allowed");
+                    }
                 }
             }
 
@@ -67,7 +112,16 @@ namespace PubTricks.Web.Models {
                 }
             }
 
-            //DATE Validation and put in a default if none provided?
+            //date
+            //fail if doesn't exist.  reflection another way to do this
+            try {
+                if (string.IsNullOrEmpty(item.DateCreated)) {
+                    item.DateCreated = DateTime.Now;
+                }
+            } catch {}
+
+            //if (item.DateCreated == "")
+            //    item.DateCreated = DateTime.Now;
 
             //this.ValidateIsCurrency(item.Price, "Should be a number");
             ////price needs to be > 0

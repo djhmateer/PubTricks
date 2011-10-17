@@ -1,4 +1,4 @@
-﻿@helper ValidatorScripts(){
+﻿@helper ValidatorScripts() {
     @Assets.Script("jquery.validate.min.js")
     @Assets.Script("jquery.validate.unobtrusive.min.js")
 }
@@ -32,7 +32,7 @@
 
 @helper TextBoxRequired(string name, object value = null, string requiredMessage = "Required") {
     var val = value ?? "";
-     //using HTML5 and jQuery validations
+            //using HTML5 and jQuery validations
     <p>
         <label>@name *</label>
         <input type="text" name="@name" id="@name" value="@val" data-val="true" data-val-required="@requiredMessage" />
@@ -70,15 +70,44 @@
     </p>
 }
 
-@helper HiddenID(object id){
+@helper HiddenID(object id) {
     <input type="hidden" name="ID" id="ID" value="@id" />
 }
 
-@helper Submit(string value="Save"){
+@helper Submit(string buttonText = "Save") {
     <p>
         <button type="submit" class="button positive">
-            <img src="/public/stylesheets/plugins/buttons/icons/tick.png" alt=""/>@value
+            <img src="/public/stylesheets/plugins/buttons/icons/tick.png" alt=""/>@buttonText
         </button>
     </p>
     <div class="clear"></div>
+}
+
+@helper RenderCreateOrEditTricks(dynamic Model) {
+    @Form.TextBoxRequired(name: "Name", value: Model.Name, requiredMessage: "Name is required")
+    @Form.TextBoxRequired(name: "Description", value: Model.Description)
+    @Form.TextArea(name: "LongDescription", value: Model.LongDescription)
+    @Form.TextBox(name: "VideoURL", value: Model.VideoURL)
+    @Form.TextBox(name: "VideoSolutionURL", value: Model.VideoSolutionURL)
+    @Form.TextBox(name: "Thumbnail", value: Model.Thumbnail)
+    @Form.TextBoxDate(name: "DateCreated", value: Model.DateCreated)
+    @Form.TextBoxNumberWithDisplayName(dbName: "Votes", displayName: "Likes", value: @Model.Votes,
+                                            numberMessage: "Should be a number")
+    @Form.Submit()
+    <h3>Business Logic Enforced in Browser if possible</h3>
+    <ul>
+     <li>Name must not be empty</li>
+     <li>Description must be be empty</li>
+     <li>Like must be an int or null</li>
+    </ul>
+    
+     <h3>Business Logic Enforced on Server in Tricks.Validator</h3>
+    <ul>
+        <li>As above (try turning off javascript in browser)</li>
+        <li>A dupliate name is not allowed</li>
+        <li>Description must be > 5 chars</li>
+        <li>If DateCreated is left blank, use today</li>
+        <li>Authentication and authorisation required</li>
+        <li>Cross side scripting attacks enforced</li>
+    </ul>
 }
