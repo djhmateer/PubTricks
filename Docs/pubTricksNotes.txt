@@ -389,84 +389,143 @@ TODO Tuesday
 				but when going back into Massive, the form post, everything is a string so have to convert to US
 					
 				
-			Week plan
-				logging when there is a problem and email send?
+			Week plan (Tue)
+				[done]get working offline - make switch to do it for demos.
+					videos in detail
+					jquery in app_code
+					themes.googleusercontent - home page
+
+				[done]2 new fields in add/edit trick
 				
-				diagram of how stuff works - especially types of values being passed
-				get working offline
-					have downloaded mp4 videos
-					
-				watch orm presentation
-					
-				BDD stuff
-				build out backend helpers
-					thumbnail
-					sizes of text boxes
-					make it look professional
-				Put on GitHub?
-				Do a demo talk
-			
-			Dates on server are rendered in US format!
-			
-			put on business logic text on create/edit form
-		
-			do a review of what done already in code
-				refactor tests
-				can edit, so that video URL is the same as  another one.
+				[done]Text boxes bigger and nicer on backend	
+					strip out css for backend make simpler
 				
+				[done]put in a default picture
+					
+				[done]Dates on server
+				
+				[done]delete put in something nice
+				
+				[done]public to Azure to make sure it works (globalization thing)
+				
+				[done]diagram of how stuff works - especially types of values being passed
+					get a simple mvc3 app talking to massive and new dbasdfasdf
+						pass in a string, int, and datetime in a form
+						save to db
+						pull back out and display
+				
+				[done]Dates bug
+					When adding, and get a validation problem, date reverts to American format.
+						Problem - DateCreated is not coming back
 						
-			bug fix on front end
-				write a test to catch it
-		
-				build out and simplify tests / code
-					make controller talk to massive more!
+				**
+				[done]dates - business logic not quite right
+						change db on live to getdate()
+						unit test dates
+						live server testing
+						
+				[no too buggy]bring in Add/Edit roles from project found yesterday
+					http://webadvert.codeplex.com/
+					Manage Accounts (users)
+					Manage Roles
+						from here can add users to roles
+						
+					problem: when add a new user (account/register) it logs you in as that user.
+						
+				Foreign key complexity
+					1 to many
+						[done]comments
+							[done - need to refactor]put in menu in admin
+								important to get looking good
+									[done]positioning of header
+									font and colour reasonable - just like woothemes
+										being picked up from other css thing.
+										[didn't work]make differnent class?
+										class=nav clashes?
+											we want the one in styleAdmin
+												changed .nav to .navx in styleAdmin in 2.2
+							
+									strip back and do in a sample project
+									
+							[done]how to put in name of trick instead of TrickID?		
+							
+							put up CRUD - TDD
+								how to get recently created entity?
+						
+
+							[done]Cant get my dropdown list of data to come through to helper method
+									can have Model.DropDownListOfTricks = asdf;
+									
+									try adding an IEnumerable of expandoobjects to it
+								
+							[done]problem: how to save the drop down list new value
+								
+								
+							[done]problem: how access the model on ViewResult
+								
+						
+						
+					many to many
+						categories back end
+							[done]get create and edit and delete of category working via TDD/BDD
+							
+							[done]multiselect inside categories - to add a category to multiple tricks.
+								key = "TrickID"
+								val = "518,519"
+								
+							get ones showing up in edit highlighted
+							
+							edit failing when there are no categories selected on CategoryData.ID
+								does not contain a definition for CategoryData
+								
+							**HERE**	
+						
+							multiselect inside trick - to add a trick to multiple categories
+							http://www.erichynds.com/jquery/jquery-ui-multiselect-widget/
+							
+								
+							
+						eg /categories/kids - this is on front end
+						
+					date picker?
 					
-				if editing it is not letting us save, as there is a 'duplicate' name in the db.
-		
-			routing - what if routing is wrong
-			http://bradwilson.typepad.com/blog/2010/07/testing-routing-and-url-generation-in-aspnet-mvc.html
+					Cruddy controller
 				
+				use unobtrusive validation against model?
+				put render stuff into a .cshtml file
+
+				put on github
+				
+				facebook like implement
+				
+				twitter make sure it works
+				
+				make ASP.Membship tables have different start or ??? differentiate
+				
+				put in text on footers
+				put in theme credits and gplv2 thing
+
+				record demo talk - send to Phil
+					start with v.simple overview of MVC3?  Dave?
+						What should be in Model
+						What should be in Controller
+						How stuff is displayed in view
+							picture of how query is done and what the types are.
+
+					TDD/BDD what works for me
+						where to start
+						write tests even if can't fill them in
+							
+					Validation strategy
+					
+				[done]watch orm presentation
+					
+				Testing
+					routing testing - what if routing is wrong
+					http://bradwilson.typepad.com/blog/2010/07/testing-routing-and-url-generation-in-aspnet-mvc.html
+				
+				Auto document from Specs
 			
-		testing in MVC3 google
-		types of testing specs, functional..higher?
-		massive test (lower)
-
-4. Admin BDD features
-		fix up admin so can enter all details in create screen as well as edit (merge two together?)
-
-4. Categories and other tables.. build out complexity to be like other applications.. and their tests
-		Cruddy controller
-
-   Auto document from Specs
-		
-5. Admin CSS strip out
-
-
-Chris Feedback
-	What should be in Model
-	What should be in Controller
-	How stuff is displayed in view
-		picture of how query is done and what the types are.
-	
-	Validation on server side if html5 doesn't work
-		in model
-	Validation on database?
-	
-	run in offline mode for HP
-		jQuery
-			put in a switch for offline.
-		videos?
-		
-	Testing
-		start with file new project and do TDD..
-			doesn't matter if can't fill in tests?
-
-			
-UserVoice for feedback.
-actually do a facebook like thing.
-
-bring in Add/Edit roles from project found yesterday
-	http://webadvert.codeplex.com/
 
 
 -------
@@ -496,8 +555,30 @@ issues with VidPub
 		eg insert a new user doesn't insert password correctly.. wrong number of parameters
 ---------------
 Presentation Notes:
+	No net access
 	
-	Why not use Silverlight?
+	keyboard shortcuts stop me if something interests you.
 	
+	Me:
+		What is MVC3 file new proj
+		Massive ORM
+			a great video free is on:
+			
+		dynamics in C#4
+		tdd/bdd
+		pubtricks
+		
+		
+		
+		
+		
+	OtherDave:
+		scaffolding
+		jqgrid
+		unobtrusive validation
+		data annotations
+		EF repository pattern
 	
+
+Why not use Silverlight?	
 	

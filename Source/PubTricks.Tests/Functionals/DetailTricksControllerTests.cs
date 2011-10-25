@@ -3,17 +3,17 @@ using NUnit.Framework;
 using PubTricks.Tests.Infrastructure;
 using PubTricks.Web.Controllers;
 using PubTricks.Web.Models;
-using Massive3;
+using Massive;
 using System.Diagnostics;
 using System.Linq;
 
 namespace PubTricks.Tests.Functionals {
     [TestFixture]
     public class DetailTricksControllerTests : TestBase {
-        dynamic _tricksTable;
 
         public DetailTricksControllerTests() {
             _tricksTable = new Tricks();
+            _commentsTable = new Comments();
             this.Describes("Tricks Controller Tests");
         }
 
@@ -25,38 +25,8 @@ namespace PubTricks.Tests.Functionals {
 
         [SetUp]
         public void Init() {
-            _tricksTable.Delete();
-
+            CleanTestDB();
             PopulateDBWithTestData();
-
-            //if (!result.Success)
-            //    DisplaySQLErrorInConsoleWindow(result);
-            //else
-            //    Assert.AreEqual(5, _tbl.All().Count());
-        }
-
-        private void PopulateDBWithTestData() {
-            //load database with test data going straight to massive
-            //validation in tricks will be called when doing insert
-            var result = _tricksTable.Insert(new {
-                Name = "Pen Trick",
-                Description = "This is the pen trick description",
-                VideoURL = @"www.youtube.com/v/OQXZXat-RPQ?version=3",
-                Votes = "11",
-                Thumbnail = @"PenTrickImage-100x100.png",
-                LongDescription = @"The pen trick is one of my favourite all time tricks.. if there is one you remember try this one!",
-                VideoSolutionURL = @"www.youtube.com/v/ILEWo_-Fib8?version=3"
-            });
-
-            result = _tricksTable.Insert(new {
-                Name = "Uncross Your Arms",
-                Description = "Uncross your arms description - very funny to watch",
-                VideoURL = @"www.youtube.com/v/2_3BJq5srL4?version=3",
-                Votes = "7",
-                Thumbnail = @"UncrossArms-100x100.png",
-                LongDescription = @"This is a good trick especially for kids or friends who have drunk more than 4 pints of beer (or 2 pints of cider.. never again...)",
-                VideosolutionURL = @"www.youtube.com/v/IyctbzxAA7U?version=3"
-            });
         }
 
         [Test]
@@ -66,10 +36,27 @@ namespace PubTricks.Tests.Functionals {
             ViewResult result = controller.Details(trickName: trickNameToGet) as ViewResult;
 
             dynamic viewModelExpando = result.ViewData.Model;
-            string nameFromMassiveDynamicQuery = viewModelExpando.Name;
+            string nameFromMassiveDynamicQuery = viewModelExpando.TrickData.Name;
 
             Assert.AreEqual(trickNameToGet, nameFromMassiveDynamicQuery);
         }
+
+        [Test]
+        public void tricks_controller_should_return_correct_data_and_comments_for_that_trick() {
+            string trickNameToGet = "Pen Trick";
+            var controller = new TricksController();
+            ViewResult result = controller.Details(trickName: trickNameToGet) as ViewResult;
+
+            dynamic viewModelExpando = result.ViewData.Model;
+            string nameFromMassiveDynamicQuery = viewModelExpando.TrickData.Name;
+
+            Assert.AreEqual(trickNameToGet, nameFromMassiveDynamicQuery);
+
+            var x = viewModelExpando.TrickComments;
+            var count = Enumerable.Count(x);
+            Assert.AreEqual(2, count);
+        }
+
 
         //details page friendly urls
         [Test]

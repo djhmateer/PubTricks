@@ -6,14 +6,20 @@ using System.Web.Mvc;
 using PubTricks.Web.Models;
 using System.Linq;
 using System.Collections;
+using System.Dynamic;
 
 namespace PubTricks.Web.Controllers
 {
     public class TricksController : Controller
     {
         dynamic _tricksTable;
+        dynamic _commentsTable;
+        dynamic _tricksCategoriesTable;
+
         public TricksController() {
             _tricksTable = new Tricks();
+            _commentsTable = new Comments();
+            _tricksCategoriesTable = new TricksCategories();
         }
        
         //
@@ -40,7 +46,21 @@ namespace PubTricks.Web.Controllers
                 //from test harness - refactor this.
             }
 
-            var model = _tricksTable.Get(ID: id);
+            dynamic model = new ExpandoObject();
+
+            var trickData = _tricksTable.Get(ID: id);
+            model.TrickData = trickData;
+
+            var trickComments = _commentsTable.Query("SELECT * FROM Comments WHERE TrickID = " + id);
+            model.TrickComments = trickComments;
+
+
+            //trickcategories
+            var trickCategories = _tricksCategoriesTable.Query("SELECT Categories.Name as CategoryName FROM TricksCategories INNER JOIN " +
+                                                                "Categories ON TricksCategories.CategoryID = Categories.ID WHERE TricksCategories.TrickID = " + id);
+            model.TrickCategories = trickCategories;
+
+
             return View(model);
         }
 

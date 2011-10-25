@@ -27,18 +27,6 @@ namespace PubTricks.Web.Models {
             if (editMode) {
                 dynamic trickFromDBByID = new ExpandoObject();
 
-                //hack for votes
-                //var thing = item.ID;
-                //var typeOfId = thing.GetType().Name;
-                //if (typeOfId == "Int32") {
-                //    var x = 1;
-                //}
-                var numerics = new string[] { "Int32", "Int16", "Int64", "Decimal", "Double", "Single", "Float" };
-                //if (numerics.Contains(type)) {
-                //    item.ID = thing.ToString();
-                //}
-
-
                 var trickFromDBList = this.All(where: "WHERE ID=@0", args: item.ID);
                 //get the only one
                 foreach (var item2 in trickFromDBList) {
@@ -115,10 +103,10 @@ namespace PubTricks.Web.Models {
             //date
             //fail if doesn't exist.  reflection another way to do this
             try {
-                if (string.IsNullOrEmpty(item.DateCreated)) {
+                if (item.DateCreated == "")
                     item.DateCreated = DateTime.Now;
-                }
-            } catch {}
+            }
+            catch { item.DateCreated = DateTime.Now; }
 
             //if (item.DateCreated == "")
             //    item.DateCreated = DateTime.Now;

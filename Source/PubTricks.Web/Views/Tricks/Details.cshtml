@@ -1,72 +1,62 @@
 ﻿@{
-    Page.Title = "PubTricks - " + @Model.Name;
+    Page.Title = "PubTricks - " + @Model.TrickData.Name;
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
 <div id="feat-title" class="col-full">
-    <h1 class="title">@Model.Name</h1>
+    <h1 class="title">@Model.TrickData.Name</h1>
 </div>
 <div id="feat-video" class="col-full">
     <!--breadcrumbs-->
     <div class="breadcrumb breadcrumbs woo-breadcrumbs">
         <div class="breadcrumb-trail">
-            <span class="trail-before">
-                <span class="breadcrumb-title">You are here:</span> 
-             </span>
+            <span class="trail-before"><span class="breadcrumb-title">You are here:</span> </span>
             <a href="/" title="Home" rel="home" class="trail-begin">Home</a> <span class="sep">&raquo;</span>
-            <span class="trail-end">@Model.Name</span></div>
+            <span class="trail-end">@Model.TrickData.Name</span></div>
     </div>
     <!--video-->
     <div class="video fl">
         <div class="single-video">
-            @*<iframe src="http://player.vimeo.com/video/16726118?title=0&byline=0&portrait=0&color=D0D9E0"
-                width="600" height="337" frameborder="0"></iframe>*@
-            <object style="height: 390px; width: 640px">
-                <param name="movie" value="http://@Model.VideoURL">
+            <!--online youtube-->
+            @*<object style="height: 390px; width: 640px">
+                <param name="movie" value="http://@Model.TrickData.VideoURL">
                 <param name="allowFullScreen" value="true">
                 <param name="allowScriptAccess" value="always">
                 <param name="wmode" value="transparent"></param>
-                <embed wmode="transparent" src="http://@Model.VideoURL" type="application/x-shockwave-flash"
-                 allowfullscreen="true" allowscriptaccess="always" width="600" height="337"></object>
-             @*<video width="600" height="337" src="/public/videos/@Model.VideoFileName" controls autobuffer autoplay="autoplay">
-            	    <p>You must have an HTML5 capable browser.</p>
-            </video>*@
-
+                <embed wmode="transparent" src="http://@Model.TrickData.VideoURL" type="application/x-shockwave-flash"
+                 allowfullscreen="true" allowscriptaccess="always" width="600" height="337"></object>*@
+            <!--offline compatible html5-->
+            <video width="600" height="337" src="/public/videos/@Model.TrickData.VideoFileName" controls autobuffer autoplay="autoplay">
+         	        <p>You must have an HTML5 capable browser.</p>
+            </video>
         </div>
         <!--sharing-->
         <ul class="share">
             <li class="twitter">
-            @{
-                string twitterURL = @"http://twitter.com/home?status=Watching http://www.pubtricks.co.nz/tricks/" + URL.MakeSpacesMinuses(@Model.Name);
-                string facebookURL = @"http://www.facebook.com/sharer.php?u=http://www.pubtricks.co.nz/tricks/" + URL.MakeSpacesMinuses(@Model.Name) + "/&t=" + @Model.Name;
-            }
+                @{
+                    string twitterURL = @"http://twitter.com/home?status=Watching http://www.pubtricks.co.nz/tricks/" + URL.MakeSpacesMinuses(@Model.TrickData.Name);
+                    string facebookURL = @"http://www.facebook.com/sharer.php?u=http://www.pubtricks.co.nz/tricks/" + URL.MakeSpacesMinuses(@Model.TrickData.Name) + "/&t=" + @Model.TrickData.Name;
+                }
                 @Assets.ImageLinkFromTheme(twitterURL, "ico-share-twitter.png", "Tweet this Video ")
             </li>
             <li class="facebook-share">
                 @Assets.ImageLinkFromTheme(facebookURL, "ico-share-facebook.png", "Share on Facebook")
             </li>
-           
         </ul>
     </div>
     <!--right hand side description stuff-->
     <div class="meta fr">
         <div class="video-excerpt entry">
-            <p>@Model.Description</p>
+            <p>@Model.TrickData.Description</p>
         </div>
         <ul class="post-meta">
-            <li class="post-date"><span class="small">Posted on:</span>@Dates.ShortDate(@Model.DateCreated)</li>
-            @* <li class="post-category"><span class="small">Category:</span> <a href="/"
-                rel="tag">People &amp; Blogs</a></li>
-            <li class="post-tags"><span class="small">Tags:</span><ul>
-                <li><a href="/" rel="tag">featured</a></li><li>
-                    <a href="/" rel="tag">sean o'brien</a></li><li>
-                        <a href="/" rel="tag">woothemes</a></li></ul>
-            </li>*@
-            <li class="post-category"><span class="small">Likes so far:</span>@Model.Votes</li>
+            <li class="post-date"><span class="small">Posted on:</span>@Dates.ShortDate(@Model.TrickData.DateCreated)</li>
+            <li class="post-category"><span class="small">Likes so far:</span>@Model.TrickData.Votes</li>
             <li class="post-tags"><span class="small">Like:</span>
                 <ul>
                     @{ 
                         bool displayLikeButton = true;
-                        string cookieName = "Trick_" + Model.ID.ToString();
+                        string cookieName = "Trick_" + Model.TrickData.ID.ToString();
                         if (Request.Cookies[cookieName] != null) {
                             displayLikeButton = false;
                         }
@@ -94,7 +84,7 @@
             <div id="main">
                 <div class="post-11 woo_video type-woo_video status-publish hentry tag-featured tag-sean-obrien tag-woothemes post">
                     <div class="entry">
-                        <p>@Model.LongDescription</p>
+                        <p>@Model.TrickData.LongDescription</p>
                     </div>
                 </div>
             </div>
@@ -104,17 +94,52 @@
         <div id="sidebar" class="col-right">
             <div class="primary">
                 <div id="woo_tabs-3" class="widget widget_woo_tabs">
-                    <!-- /wooTabs -->
+                    @if (Enumerable.Count(Model.TrickCategories) > 0) {     
+                        <p>Categories</p>
+                    }
+                    else { 
+                        <p>No categories selected</p>
+                    }
                 </div>
+                 </div>
+                @if (Enumerable.Count(Model.TrickCategories) > 0) {     
+                    <div id="woo_tabs-3" class="widget widget_woo_tabs">
+                        @foreach (var item in Model.TrickCategories) {
+                            <p><b>@item.CategoryName</b></p>
+                        }
+                    </div>
+                }
+                else { }
+
+
+
+
+                <div id="woo_tabs-3" class="widget widget_woo_tabs">
+                    @if (Enumerable.Count(Model.TrickComments) > 0) {     
+                        <p>Comments</p>
+                    }
+                    else { 
+                        <p>@*No comments yet - email us and let us know!*@</p>
+                    }
+                </div>
+                @if (Enumerable.Count(Model.TrickComments) > 0) {     
+                    <div id="woo_tabs-3" class="widget widget_woo_tabs">
+                        @foreach (var item in Model.TrickComments) {
+                            <p><b>@item.CommentText</b></p>
+                        }
+                    </div>
+                }
+                else { }
             </div>
         </div>
         <!-- /#sidebar -->
     </div>
     <!-- #content -->
 </div>
-<br /><br />
+<br />
+<br />
 <!--solution-->
-@if (@Model.VideoSolutionURL != null && @Model.VideoSolutionURL != "") { 
+@if (@Model.TrickData.VideoSolutionURL != null && @Model.TrickData.VideoSolutionURL != "") { 
     <div id="feat-title" class="col-full">
         <h1 class="title">
             Solution</h1>
@@ -123,15 +148,19 @@
         <!--video-->
         <div class="video fl">
             <div class="single-video">
-                @*<iframe src="http://player.vimeo.com/video/16726118?title=0&byline=0&portrait=0&color=D0D9E0"
-                width="600" height="337" frameborder="0"></iframe>*@
-                <object style="height: 390px; width: 640px">
-                    <param name="movie" value="http://@Model.VideoSolutionURL">
+                <!--online youtube-->
+                @*   <object style="height: 390px; width: 640px">
+                    <param name="movie" value="http://@Model.TrickData.VideoSolutionURL">
                     <param name="allowFullScreen" value="true">
                     <param name="allowScriptAccess" value="always">
                     <param name="wmode" value="transparent"></param>
-                    <embed wmode="transparent" src="http://@Model.VideoSolutionURL" type="application/x-shockwave-flash"
+                    <embed wmode="transparent" src="http://@Model.TrickData.VideoSolutionURL" type="application/x-shockwave-flash"
                             allowfullscreen="true" allowscriptaccess="always" width="600" height="337"></object>
+*@
+                <!--offline compatible html5-->
+                <video width="600" height="337" src="/public/videos/@Model.TrickData.VideoFileNameReveal" controls autobuffer>
+         	            <p>You must have an HTML5 capable browser.</p>
+                </video>
             </div>
         </div>
         <!--right hand side description stuff-->
@@ -140,56 +169,3 @@
     </div>
 }
 <!--bottom grey 4 col section-->
-<div id="footer-widgets" class="col-full col-4">
-    <div id="footer-wrapper">
-        <div class="block footer-widget-1">
-            <div id="recent-posts-3" class="widget widget_recent_entries">
-                <h3>Header1</h3>
-                <ul>
-                    <li>Blah</li>
-                </ul>
-            </div>
-        </div>
-        <div class="block footer-widget-2">
-            <div id="woo_subscribe-3" class="widget widget_woo_subscribe">
-                <div id="connect">
-                    <h3 class="title">
-                        Header 2</h3>
-                    <div>
-                        <p>
-                            Blah</p>
-                        <div class="social">
-                        </div>
-                    </div>
-                    <!-- col-left -->
-                    <div class="fix">
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="block footer-widget-3">
-            <div id="tag_cloud-3" class="widget widget_tag_cloud">
-                <h3>
-                    Header 3</h3>
-                <div class="tagcloud">
-                Blah
-                 </div>
-            </div>
-        </div>
-        <div class="block footer-widget-4">
-            <div id="text-3" class="widget widget_text">
-                <h3>
-                    Header 4</h3>
-                <div id="texwidget">
-                Blah
-                    @*@foreach (dynamic item in PubTricks.Web.Models.Quotes.FromUsers()) {
-                        @Quotes.User(item)
-                    }*@
-                </div>
-            </div>
-        </div>
-        <div class="fix">
-        </div>
-    </div>
-    <!-- #wrapper -->
-</div>

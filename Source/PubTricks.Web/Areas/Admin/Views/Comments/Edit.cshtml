@@ -1,0 +1,23 @@
+﻿@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h3>@Html.ActionLink("Comments", "Index", "Comments") > Create</h3>
+
+@Form.ValidatorScripts()
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    
+    //todo refactor becuase if anything is in TempData then this will call
+    if (@TempData.Keys.Count != 0) { 
+    <div class="error">
+        @TempData["Error"]
+    </div>
+    }
+    @Form.HiddenID(Model.Data.ID)
+    @Form.RenderCreateOrEditComments(Model)
+}
+
+

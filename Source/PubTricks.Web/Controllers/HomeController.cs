@@ -1,8 +1,7 @@
-﻿using System.Web.Mvc;
+﻿using System.Dynamic;
+using System.Web.Mvc;
 using PubTricks.Web.Infrastructure;
 using PubTricks.Web.Models;
-using System.Dynamic;
-using System;
 
 namespace PubTricks.Web.Controllers {
     public class HomeController : Controller {
@@ -25,6 +24,15 @@ namespace PubTricks.Web.Controllers {
 
         public ActionResult Thanks() {
             _logger.LogInfo("In thanks");
+            return View();
+        }
+
+        public ActionResult Developers() {
+            _logger.LogInfo("In developers");
+            return View();
+        }
+
+        public ActionResult About() {
             return View();
         }
     }

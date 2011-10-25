@@ -45,6 +45,13 @@
         })();
     </script>
 
+    @Assets.Script("jquery.cycle.all.js")
+    <script>
+        $(document).ready(function () {
+            $("#textwidget").cycle({ fx: 'fade', pause: 1, speed: 900, timeout: 4000 })
+        });
+    </script>
+
 </head>
 
 <body class="home blog chrome layout-left-content">
@@ -87,6 +94,59 @@
 		<!-- /#header -->
 
 		@RenderBody()
+
+
+
+        
+<div id="footer-widgets" class="col-full col-4">
+    <div id="footer-wrapper">
+        <div class="block footer-widget-1">
+            <div id="recent-posts-3" class="widget widget_recent_entries">
+                <h3>Links</h3>
+                <ul>
+                    <li><a href="/home/about" title="About">About and Contacts</a></li>
+                    <li><a href="/home/thanks" title="Thanks">Image Credits</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="block footer-widget-2">
+            <div id="woo_subscribe-3" class="widget widget_woo_subscribe">
+                <div id="connect">
+                    <h3 class="title">
+                        Developers</h3>
+                    <div>
+                        <a href="/home/developers" title="Thanks">Developer Links</a>
+                    </div>
+                    <!-- col-left -->
+                    <div class="fix">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="block footer-widget-3">
+            <div id="tag_cloud-3" class="widget widget_tag_cloud">
+                <h3>
+                    About PubTricks</h3>
+                <div class="tagcloud">
+                    Many thanks for checking out pubtricks - enjoy :-)
+                </div>
+            </div>
+        </div>
+        <div class="block footer-widget-4">
+            <div id="text-3" class="widget widget_text">
+                <h3>Quotes</h3>
+                <div id="textwidget">
+                    @foreach (dynamic item in PubTricks.Web.Models.Quotes.FromUsers()) {
+                        @Quotes.User(item)
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="fix">
+        </div>
+    </div>
+    <!-- #wrapper -->
+</div>
 
 
 

@@ -1,11 +1,65 @@
-﻿@{
-    Layout = "~/Views/Shared/_AdminLayoutMaster.cshtml";
-}
-@Assets.CSS("jquery_ui/jquery.ui.all.css")
-@Assets.CSS("forms.css")
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>@Page.Title</title>
 
-<div class="container">
-    <div class="column">
-    @RenderBody()
+    <!--sets up layout nicely in header positioning, and puts in dark background-->
+   @Assets.CSS("styleAdmin.css")
+   @*  @Assets.Script("superfish.js?ver=3.2.1")
+	@Assets.Script("menu.js?ver=3.2.1")*@
+
+    @Assets.jQuery(true)
+    <!--main css-->
+    @Assets.CSS("site.css")
+    <!--blueprint-->
+    @Assets.CSS("screen.css")
+    <!--blueprint-->
+    @Assets.CSS("print.css")
+    <!--[if lt IE 8]><link rel="stylesheet" href="../../blueprint/ie.css" type="text/css" media="screen, projection"><![endif]-->
+    <!--nice forms-->
+    @Assets.CSS("forms.css")
+
+      
+
+</head>
+<body>
+    <div id='logo'>
+        @Assets.ImageLink(URL.SiteRoot(), "logoPubTricks.png")
     </div>
-</div>
+    <div id="navigation">
+        <div class="col-full">
+            <ul id="tagline">
+             @Html.Partial("_LogOnPartial")
+                @*<span class="site-description">Awesome Pub Tricks!</span>*@
+            </ul>
+           
+            <ul id="main-nav" class="navx fr">
+               @* <li id="menu-item-108" class="menu-item menu-item-type-taxonomy menu-item-object-woo_video_category current-menu-item menu-item-108"><a href="http://demo.woothemes.com/premiere/video-category/music/">Music</a></li>*@
+              @* <li class="dave2">asdf</li>*@
+                <li class="page_item current_page_item"><a href="/admin/tricks" title="Tricks" class="dave">Tricks</a></li>
+                <li class="page_item page-item-2"><a href="/admin/categories" title="Categories">Categories</a></li>
+                <li class="page_item page-item-2"><a href="/admin/comments" title="Comments">Comments</a></li>
+            </ul>
+        </div>
+    </div>
+
+
+    <div class="container">
+        <div class="column">
+           
+        </div>
+    </div>
+    <div class="container">
+        <div class="column">
+            @RenderBody()
+        </div>
+    </div>
+    <hr>
+    <div class="container">
+        <div class="span-4">
+            @Snippets.FooterText()
+        </div>
+    </div>
+</body>
+</html>

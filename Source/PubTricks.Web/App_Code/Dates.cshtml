@@ -1,7 +1,6 @@
 ﻿@functions{
+    //used in front end summary of tricks and back end index page
     public static dynamic ChopOffTime(DateTime str) {
-        //string[] words = str.ToString().Split(' ');
-        //string word = String.Format("{D}", str);
         var date = str.ToString("dd MMM, yyyy");
         
         return new HtmlString(date);
@@ -13,4 +12,3 @@
         @ChopOffTime(date)
     </div>    
 }
-

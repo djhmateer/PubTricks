@@ -11,40 +11,18 @@ using PubTricks.Web.Models;
 namespace PubTricks.Tests.Functionals {
     [TestFixture]
     public class AdminTricksControllerTests : TestBase {
-        dynamic _tricksTable;
 
         public AdminTricksControllerTests() {
             this.Describes("Admin Controllers Tests");
             _tricksTable = new Tricks();
+            _commentsTable = new Comments();
         }
 
         [SetUp]
         public void Init() {
-            _tricksTable.Delete();
-        }
-
-        private void PopulateDBWithTestData() {
-            //load database with test data going straight to massive
-            //validation in tricks will be called when doing insert
-            var result = _tricksTable.Insert(new {
-                Name = "Pen Trick",
-                Description = "This is the pen trick description",
-                VideoURL = @"www.youtube.com/v/OQXZXat-RPQ?version=3",
-                Votes = "11",
-                Thumbnail = @"PenTrickImage-100x100.png",
-                LongDescription = @"The pen trick is one of my favourite all time tricks.. if there is one you remember try this one!",
-                VideoSolutionURL = @"www.youtube.com/v/ILEWo_-Fib8?version=3"
-            });
-
-            result = _tricksTable.Insert(new {
-                Name = "Uncross Your Arms",
-                Description = "Uncross your arms description - very funny to watch",
-                VideoURL = @"www.youtube.com/v/2_3BJq5srL4?version=3",
-                Votes = "7",
-                Thumbnail = @"UncrossArms-100x100.png",
-                LongDescription = @"This is a good trick especially for kids or friends who have drunk more than 4 pints of beer (or 2 pints of cider.. never again...)",
-                VideosolutionURL = @"www.youtube.com/v/IyctbzxAA7U?version=3"
-            });
+            CleanTestDB();
+            //_commentsTable.Delete();
+            //_tricksTable.Delete();
         }
 
         //create trick - name
@@ -192,7 +170,7 @@ namespace PubTricks.Tests.Functionals {
             return errorMessage;
         }
 
-        //create trick - date created
+        //create trick - datecreated
         [Test]
         public void a_new_trick_should_be_saved_to_db_when_date_created_field_is_blank_and_set_to_now() {
             var controller = new TricksController();
@@ -252,6 +230,27 @@ namespace PubTricks.Tests.Functionals {
         }
 
         [Test]
+        public void a_new_trick_should_not_be_saved_to_db_when_date_created_field_is_filled_in_us_date_format() {
+            var controller = new TricksController();
+            var formCollection = new FormCollection() {
+                                                            { "Name", "test" },
+                                                            { "Description", "test desc" },
+                                                            { "Votes", "" },
+                                                            { "VideoURL", "" },
+                                                            { "DateCreated", "10/17/2011"}
+                                                      };
+            //on success result is always null
+            var result = controller.Create(formCollection) as ViewResult;
+
+            //on fail result holds the errors list
+            string errorMessage = "";
+            if (result != null)
+                errorMessage = result.TempData["Error"].ToString();
+            Assert.IsNotEmpty(errorMessage);
+        }
+
+        //edit trick - datecreated
+        [Test]
         public void an_existing_trick_should_be_saved_to_db_when_everything_is_good_and_date_in_nz() {
             PopulateDBWithTestData();
             var controller = new TricksController();
@@ -276,6 +275,31 @@ namespace PubTricks.Tests.Functionals {
 
             Assert.AreEqual("15/10/2011 00:00", dateCreatedAsDateTimeShortFormat);
         }
+
+        [Test]
+        public void an_existing_trick_should_not_be_saved_to_db_when_date_created_field_is_filled_in_us_date_format() {
+            PopulateDBWithTestData();
+            var controller = new TricksController();
+            //get id of Pen Trick
+            var model = _tricksTable.Get(Name: "Pen Trick");
+            int idOfPenTrick = model.ID;
+            var formCollection = new FormCollection() {
+                                                        { "ID", idOfPenTrick.ToString() },
+                                                        { "Name", "Pen Trick" },
+                                                        { "Description", "test descrxxx"},
+                                                        { "Votes", "2" },
+                                                        { "VideoURL", "" },
+                                                        { "DateCreated", "10/17/2011"}
+                                                      };
+            var result = controller.Edit(idOfPenTrick, formCollection) as ViewResult;
+
+            //on fail result holds the errors list
+            string errorMessage = "";
+            if (result != null)
+                errorMessage = result.TempData["Error"].ToString();
+            Assert.IsNotEmpty(errorMessage);
+        }
+
 
         //edit trick name - in fact validation is mostly the same on edit except on duplicate name and videourl.
         [Test]

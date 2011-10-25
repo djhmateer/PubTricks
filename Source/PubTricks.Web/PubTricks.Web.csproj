@@ -14,7 +14,7 @@
     <AssemblyName>PubTricks.Web</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
-    <UseIISExpress>false</UseIISExpress>
+    <UseIISExpress>true</UseIISExpress>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -102,6 +102,8 @@
     <Content Include="App_Code\Quotes.cshtml" />
     <Compile Include="App_Start\NinjectMVC3.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\CategoriesController.cs" />
+    <Compile Include="Areas\Admin\Controllers\CommentsController.cs" />
     <Compile Include="Areas\Admin\Controllers\TricksController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -112,8 +114,10 @@
     <Compile Include="Infrastructure\Logger\ILogger.cs" />
     <Compile Include="Infrastructure\Logger\NLogger.cs" />
     <Compile Include="Infrastructure\Massive.cs" />
-    <Compile Include="Infrastructure\Massive3.cs" />
     <Compile Include="Models\AccountModel.cs" />
+    <Compile Include="Models\Comments.cs" />
+    <Compile Include="Models\Categories.cs" />
+    <Compile Include="Models\TricksCategories.cs" />
     <Compile Include="Models\Quotes.cs" />
     <Compile Include="Models\Tricks.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -129,12 +133,15 @@
     <Content Include="Public\images\FootAndHand-100x100.png" />
     <Content Include="Public\images\kidsTrickFlickr.jpg" />
     <Content Include="Public\images\logoPubTricks.png" />
+    <Content Include="Public\images\NoImage-100x100.png" />
     <Content Include="Public\images\PenTrickImage-100x100.png" />
     <Content Include="Public\images\pubTrickFlickr.jpg" />
     <Content Include="Public\images\UncrossArms-100x100.png" />
     <Content Include="Public\images\woothemes-74x18.png" />
     <Content Include="Public\javascripts\jquery.cycle.all.js" />
     <Content Include="Public\javascripts\jquery.validate.min.js" />
+    <Content Include="Public\javascripts\jqueryui\1.8.16\jquery-ui.min.js" />
+    <Content Include="Public\javascripts\jquery\1.6.4\jquery.min.js" />
     <Content Include="Public\javascripts\modernizr-1.7.min.js" />
     <Content Include="Public\stylesheets\custom.css" />
     <Content Include="Public\stylesheets\forms.css" />
@@ -153,6 +160,7 @@
     <Content Include="Public\stylesheets\images\bg-home.jpg" />
     <Content Include="Public\stylesheets\images\bg-ie-transparency.png" />
     <Content Include="Public\stylesheets\images\bg-nav.png" />
+    <Content Include="Public\stylesheets\images\bg-navDark.png" />
     <Content Include="Public\stylesheets\images\bg-page.jpg" />
     <Content Include="Public\stylesheets\images\bg-search.png" />
     <Content Include="Public\stylesheets\images\bg-sidebar.png" />
@@ -262,7 +270,7 @@
     <Content Include="Public\javascripts\menu.js" />
     <Content Include="Public\javascripts\slides.min.jquery.js" />
     <Content Include="Public\javascripts\superfish.js" />
-    <Content Include="Public\stylesheets\Site.css" />
+    <Content Include="Public\stylesheets\site.css" />
     <Content Include="Public\stylesheets\src\forms.css" />
     <Content Include="Public\stylesheets\src\grid.css" />
     <Content Include="Public\stylesheets\src\grid.png" />
@@ -270,31 +278,32 @@
     <Content Include="Public\stylesheets\src\print.css" />
     <Content Include="Public\stylesheets\src\reset.css" />
     <Content Include="Public\stylesheets\src\typography.css" />
-    <Content Include="Public\stylesheets\style.css" />
     <Content Include="Public\stylesheets\default.css" />
+    <Content Include="Public\stylesheets\style.css" />
+    <Content Include="Public\stylesheets\styleAdmin.css" />
     <Content Include="Public\videos\Beer.mp4">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Public\videos\CoinTrickReveal.mp4">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Public\videos\CoinTrick.mp4">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Public\videos\FootAndHand.mp4">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Public\videos\PenTrickReveal.mp4">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Public\videos\PenTrick.mp4">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Public\videos\UncrossArmsReveal.mp4">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Public\videos\UncrossArms.mp4">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -335,6 +344,14 @@
     <Content Include="App_Code\Dates.cshtml" />
     <None Include="App_Data\logs\site.log" />
     <Content Include="Areas\Admin\Views\Web.config" />
+    <Content Include="Areas\Admin\Views\Comments\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Comments\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Comments\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Comments\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Categories\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Categories\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Categories\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Categories\Delete.cshtml" />
     <None Include="CodeTemplates\AddController\Controller.tt" />
     <None Include="CodeTemplates\AddView\CSHTML\Create.tt" />
     <None Include="CodeTemplates\AddView\CSHTML\Delete.tt" />
@@ -345,12 +362,13 @@
     <None Include="Public\stylesheets\images\logoPubTricks.pdn" />
     <Content Include="Views\Shared\_AdminLayout.cshtml" />
     <Content Include="Areas\Admin\Views\Tricks\Index.cshtml" />
-    <Content Include="Views\Shared\_AdminLayoutMaster.cshtml" />
     <Content Include="Areas\Admin\Views\Tricks\Create.cshtml" />
     <Content Include="Areas\Admin\Views\Tricks\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Tricks\Delete.cshtml" />
     <Content Include="Views\Tricks\Details.cshtml" />
     <Content Include="Views\Home\Thanks.cshtml" />
+    <Content Include="Views\Home\Developers.cshtml" />
+    <Content Include="Views\Home\About.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Admin\Models\" />
@@ -371,12 +389,11 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>False</UseIIS>
+          <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>50822</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>
-          </IISUrl>
+          <IISUrl>http://localhost:50822/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

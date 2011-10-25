@@ -57,15 +57,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Functionals\AdminCommentsControllerTests.cs" />
     <Compile Include="Functionals\AdminTricksControllerTests.cs" />
+    <Compile Include="Functionals\AdminCategoriesControllerTests.cs" />
     <Compile Include="Functionals\DetailTricksControllerTests.cs" />
     <Compile Include="Functionals\HomeControllerTests.cs" />
     <Compile Include="Infrastructure\FakeLogger.cs" />
     <Compile Include="Infrastructure\TestLogger.cs" />
-    <Compile Include="Specs\CategorySpecs.cs" />
     <Compile Include="Specs\MembershipSpecs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Specs\TrickSpecs.cs" />
     <Compile Include="TestBase.cs" />
   </ItemGroup>
   <ItemGroup>

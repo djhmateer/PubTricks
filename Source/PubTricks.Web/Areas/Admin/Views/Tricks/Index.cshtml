@@ -2,9 +2,8 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
-
-<h2>Index</h2>
-
+<h2>
+    Tricks</h2>
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
@@ -17,34 +16,28 @@
             Description
         </th>
         <th>
-            VideoURL
-        </th>
-        <th>
-            Thumbnail
-        </th>
-        <th>
             DateCreated
         </th>
         <th>
             Likes
         </th>
-        <th></th>
+        <th>
+        </th>
     </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>@item.Name</td>
-        <td>@item.Description</td>
-        <td>@item.VideoURL</td>
-        <td>@item.Thumbnail</td>
-        <td>@item.DateCreated</td>
-        <td>@item.Votes</td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new {  id=item.ID  }) |
-            @*@Html.ActionLink("Details", "Details", new {  id=item.ID }) |*@
-            @Html.ActionLink("Delete", "Delete", new {  id=item.ID  })
-        </td>
-    </tr>
-}
-
+    @foreach (var item in Model) {
+        <tr>
+            <td>@item.Name
+            </td>
+            <td>@item.Description
+            </td>
+            <td>@Dates.ShortDate(@item.DateCreated)
+            </td>
+            <td>@item.Votes
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+            </td>
+        </tr>
+    }
 </table>

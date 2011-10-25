@@ -4,11 +4,15 @@
 }
 <h3>@Html.ActionLink("Tricks", "Index", "Tricks") > Create</h3>
 @Form.ValidatorScripts()
-
 @using (Html.BeginForm()) {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
-    @TempData["Error"]
-
+    //todo refactor
+    if (@TempData.Keys.Count != 0) { 
+    <div class="error">
+        @TempData["Error"]
+    </div>
+    }
+    
     @Form.RenderCreateOrEditTricks(Model)
 }

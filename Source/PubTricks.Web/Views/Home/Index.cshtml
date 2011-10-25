@@ -20,19 +20,14 @@
     });
 </script>
 
-@Assets.Script("jquery.cycle.all.js")
-<script>
-    $(document).ready(function () {
-        $("#textwidget").cycle({ fx: 'fade', pause: 1, speed: 900, timeout: 4000 })
-    });
-</script>
+
 
 <!--slides-->
 <div id="slides">
     <div class="slides_container" style="display: none;">
         <div class="slide ">
             <div class="text bottom">    				<h2><a href="/tricks/pen-trick">Pen Trick</a></h2><p>Entertain your friends, kids, and have a blast.   Click on this slide to see our highest rated Pen Trick.​</p>                    <a class="slide-overlay-toggle">#</a>    		</div>
-            <div class="image">    			<a title="Pen Trick" href="/tricks/pen-trick">                @Assets.Image("pubTrickFlickr.jpg")                @*<img src="pubTrickFlickr.jpg" alt="asdf" class="woo-image"  width="760"  />*@                </a>    			    		</div>       </div>
+            <div class="image">    			<a title="Pen Trick" href="/tricks/pen-trick">                @Assets.Image("pubTrickFlickr.jpg")                </a>    			    		</div>       </div>
 
        <div class="slide ">
             <div class="text bottom">    				<h2><a href="/tricks/coin-trick">Coin Trick</a></h2><p>Needs a bit of practice, then you are sweet to go.</p>                    <a class="slide-overlay-toggle">#</a>    		</div>
@@ -64,7 +59,10 @@
                   <div class="post block">
                     <div class="tab-image-block">
                         <a href="/tricks/@URL.MakeSpacesMinuses(@item.Name)" title="@item.Name">
-
+                             @if (item.Thumbnail == "") {
+                                 item.Thumbnail = "NoImage-100x100.png";
+                             }
+                                
                             <img src="/public/images/@item.Thumbnail" alt="@item.Name" class="woo-image thumbnail" /></a>
                     </div>
                     <h2 class="title">
@@ -145,54 +143,8 @@
     })
 
 </script>
-<div id="footer-widgets" class="col-full col-4">
-    <div id="footer-wrapper">
-        <div class="block footer-widget-1">
-            <div id="recent-posts-3" class="widget widget_recent_entries">
-                <h3>Links</h3>
-                <ul>
-                    <li><a href="/home/thanks" title="Thanks">Image Credits</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="block footer-widget-2">
-            <div id="woo_subscribe-3" class="widget widget_woo_subscribe">
-                <div id="connect">
-                    <h3 class="title">
-                        Heading 2</h3>
-                    <div>
-                        Blah
-                    </div>
-                    <!-- col-left -->
-                    <div class="fix">
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="block footer-widget-3">
-            <div id="tag_cloud-3" class="widget widget_tag_cloud">
-                <h3>
-                    Heading 3</h3>
-                <div class="tagcloud">
-                    Blah
-                </div>
-            </div>
-        </div>
-        <div class="block footer-widget-4">
-            <div id="text-3" class="widget widget_text">
-                <h3>Quotes</h3>
-                <div id="textwidget">
-                    @foreach (dynamic item in PubTricks.Web.Models.Quotes.FromUsers()) {
-                        @Quotes.User(item)
-                    }
-                </div>
-            </div>
-        </div>
-        <div class="fix">
-        </div>
-    </div>
-    <!-- #wrapper -->
-</div>
+
+
 @*<div class="container">
    
 </div>*@ 

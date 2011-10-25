@@ -2,21 +2,26 @@
     @Assets.Script("jquery.validate.min.js")
     @Assets.Script("jquery.validate.unobtrusive.min.js")
 }
-
 @helper ValidationMessage(string name) {
-    <span class="field-validation-valid" data-valmsg-for="@name" data-valmsg-replace="true"></span>
+    <span class="field-validation-valid" data-valmsg-for="@name" data-valmsg-replace="true">
+    </span>
 }
-
-@helper TextBox(string name, object value = null) {
+@helper TextBox(string name, object value = null, string displayName = "") {
+    if (displayName == "") {
+        displayName = name;
+    }
     //if value is null, set to empty string
     var val = value ?? "";
     <p>
-        <label>@name</label>
+        <label>@displayName</label>
         <input type="text" name="@name" id="@name" value="@val" />
     </p>
 }
-
-@helper TextBoxDate(string name, object value = null) {
+@helper TextBoxDate(string name, object value = null, string displayName = "") {
+    //if displayName "" use name
+    if (displayName == "") {
+        displayName = name;
+    }
     //if value is null, set to empty string
     var val = value ?? "";
     //chop time off string if there
@@ -25,21 +30,22 @@
     string datePart = dateStringBits[0];
     
     <p>
-        <label>@name</label>
+        <label>@displayName</label>
         <input type="text" name="@name" id="@name" value="@datePart" />
     </p>
 }
-
-@helper TextBoxRequired(string name, object value = null, string requiredMessage = "Required") {
+@helper TextBoxRequired(string name, object value = null, string requiredMessage = "Required", string displayName = "") {
     var val = value ?? "";
+    if (displayName == "") {
+        displayName = name;
+    }
             //using HTML5 and jQuery validations
     <p>
-        <label>@name *</label>
+        <label>@displayName *</label>
         <input type="text" name="@name" id="@name" value="@val" data-val="true" data-val-required="@requiredMessage" />
         @ValidationMessage(name)
     </p>
 }
-
 @helper TextBoxNumber(string name, object value = null, string numberMessage = "Should be a number") {
     var val = value ?? "";
             //using HTML5 and jQuery validations
@@ -49,7 +55,6 @@
         @ValidationMessage(name)
     </p>
 }
-
 @helper TextBoxNumberWithDisplayName(string dbName, string displayName, object value = null, string numberMessage = "Should be a number") {
     var val = value ?? "";
             //using HTML5 and jQuery validations
@@ -59,55 +64,138 @@
         @ValidationMessage(dbName)
     </p>
 }
-
 @helper TextArea(string name, string attributes = "", object value = null) {
     var val = value ?? "";
     <p>
         <label>@name</label>
         @*<textarea name="@name" id="@name" @attributes >@val</textarea>*@
         <textarea name="@name" id="@name">@val</textarea>
-
     </p>
 }
-
 @helper HiddenID(object id) {
     <input type="hidden" name="ID" id="ID" value="@id" />
 }
-
 @helper Submit(string buttonText = "Save") {
     <p>
         <button type="submit" class="button positive">
-            <img src="/public/stylesheets/plugins/buttons/icons/tick.png" alt=""/>@buttonText
+            <img src="/public/stylesheets/plugins/buttons/icons/tick.png" alt="" />@buttonText
         </button>
     </p>
-    <div class="clear"></div>
+    <div class="clear">
+    </div>
 }
-
 @helper RenderCreateOrEditTricks(dynamic Model) {
-    @Form.TextBoxRequired(name: "Name", value: Model.Name, requiredMessage: "Name is required")
-    @Form.TextBoxRequired(name: "Description", value: Model.Description)
-    @Form.TextArea(name: "LongDescription", value: Model.LongDescription)
-    @Form.TextBox(name: "VideoURL", value: Model.VideoURL)
-    @Form.TextBox(name: "VideoSolutionURL", value: Model.VideoSolutionURL)
-    @Form.TextBox(name: "Thumbnail", value: Model.Thumbnail)
-    @Form.TextBoxDate(name: "DateCreated", value: Model.DateCreated)
-    @Form.TextBoxNumberWithDisplayName(dbName: "Votes", displayName: "Likes", value: @Model.Votes,
+    <fieldset>
+        <legend>Trick</legend>
+        @Form.TextBoxRequired(name: "Name", value: Model.Name, requiredMessage: "Name is required")
+        @Form.TextBoxRequired(name: "Description", value: Model.Description)
+        @Form.TextArea(name: "LongDescription", value: Model.LongDescription)
+        @Form.TextBox(name: "VideoURL", value: Model.VideoURL, displayName: @"VideoURL eg www.youtube.com/v/-hnnpzBSnU8?version=3")
+        @Form.TextBox(name: "VideoSolutionURL", value: Model.VideoSolutionURL, displayName: @"VideoSolutionURL eg www.youtube.com/v/rlhAj5_i56I?version=3")
+        @Form.TextBox(name: "Thumbnail", value: Model.Thumbnail, displayName: "eg CoinTrick-100x100.png  (must be in public/images)")
+        @Form.TextBoxDate(name: "DateCreated", value: Model.DateCreated, displayName: "DateCreated - dd/mm/yyyy")
+        @Form.TextBoxNumberWithDisplayName(dbName: "Votes", displayName: "Likes", value: @Model.Votes,
                                             numberMessage: "Should be a number")
-    @Form.Submit()
-    <h3>Business Logic Enforced in Browser if possible</h3>
+        @Form.TextBox(name: "VideoFileName", value: Model.VideoFileName, displayName: "VideoFileName eg CoinTrick.mp4 (for HTML5 viewer must be in public/videos)")
+        @Form.TextBox(name: "VideoFileNameReveal", value: Model.VideoFileNameReveal, displayName: "VideoFileNameReveal eg CoinTrickReveal.mp4")
+        @Form.Submit()
+    </fieldset>
+    <h3>
+        Business Logic Enforced in Browser if possible</h3>
     <ul>
-     <li>Name must not be empty</li>
-     <li>Description must be be empty</li>
-     <li>Like must be an int or null</li>
+        <li>Name must not be empty</li>
+        <li>Description must be be empty</li>
+        <li>Like must be an int or null</li>
     </ul>
     
-     <h3>Business Logic Enforced on Server in Tricks.Validator</h3>
+    <h3>
+        Business Logic Enforced on Server in Tricks.Validator</h3>
     <ul>
         <li>As above (try turning off javascript in browser)</li>
         <li>A dupliate name is not allowed</li>
         <li>Description must be > 5 chars</li>
         <li>If DateCreated is left blank, use today</li>
+        <li>If DateCreated parses try to insert, if fail, send error back</li>
         <li>Authentication and authorisation required</li>
         <li>Cross side scripting attacks enforced</li>
     </ul>
+}
+@helper DropDownList(string name, dynamic dropdownlistdata, int selectedItem = 0, object value = null, string displayName = "") {
+    //if value is null, set to empty string
+    var val = value ?? "";
+    <p>
+        <label>@displayName</label>
+        <select name="@name">
+            @foreach (var item in dropdownlistdata) {
+                if (item.TrickID == selectedItem) {
+                <option selected="selected" value="@item.TrickID">@item.TrickName</option>
+                }
+                else { 
+                <option value="@item.TrickID">@item.TrickName</option>
+                }
+            }
+        </select>
+    </p>
+}
+@helper RenderCreateOrEditComments(dynamic Model) {
+    <fieldset>
+        <legend>Comment</legend>
+        @{ int x = 0;
+           try {
+               x = Model.Data.TrickID;
+           }
+           catch { }
+        }
+        @Form.DropDownList(name: "TrickID", dropdownlistdata: Model.DropDownListOfTricks, selectedItem: x, displayName: "Trick")
+        @Form.TextArea(name: "CommentText", value: Model.Data.CommentText)
+        @Form.Submit()
+    </fieldset>
+    <h3>
+        Business Logic Enforced in Browser if possible</h3>
+    <ul>
+        <li>asdf</li>
+    </ul>
+    <h3>
+        Business Logic Enforced on Server in Tricks.Validator</h3>
+    <ul>
+        <li>asdf</li>
+    </ul>
+}
+@helper RenderCreateOrEditCategories(dynamic Model) {
+    <fieldset>
+        <legend>Category</legend>
+        @{ string x = "";
+           try {
+               x = Model.CategoryData.Name;
+           }
+           catch { }
+        }
+        @Form.TextBoxRequired(name: "Name", value: x)
+        @Form.DropDownListMulti(name: "TrickID", dropdownlistdata: Model.DropDownListOfTricksMulti, displayName: "All tricks (highlighted are in this category)")
+        @Form.Submit()
+    </fieldset>
+    <h3>
+        Business Logic Enforced in Browser if possible</h3>
+    <ul>
+        <li>Name is required</li>
+    </ul>
+}
+@helper DropDownListMulti(string name, dynamic dropdownlistdata, object value = null, string displayName = "") {
+    //if value is null, set to empty string
+    var val = value ?? "";
+    <p>
+        <label>@displayName</label>
+        <select id="example" name="@name" multiple="multiple">
+            @foreach (var item in dropdownlistdata) {
+
+                if (item.Selected == true) {
+                <option selected="selected" value="@item.TrickID">@item.TrickName</option>
+                }
+                else { 
+                <option value="@item.TrickID">@item.TrickName</option>
+                }
+
+            }
+        </select>
+    </p>
 }

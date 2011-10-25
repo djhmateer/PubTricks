@@ -17,7 +17,6 @@ namespace PubTricks.Web.Areas.Admin.Controllers
         [Authorize(Roles = "Administrator")]
         public ActionResult Index()
         {
-            var x = TempData["thing"];
             return View(_tricksTable.All());
         }
 
@@ -40,36 +39,46 @@ namespace PubTricks.Web.Areas.Admin.Controllers
         {
             var itemToCreate = _tricksTable.CreateFrom(collection);
 
-            //convert from NZ to US dateformat
-            //if DateCreated actually exists coming in
-            //if not it will be caught in validation and set to now
-            try {
-                string t = itemToCreate.DateCreated;
-                string[] words = t.Split('/');
-                string day = words[0];
-                string month = words[1];
-                string year = words[2];
-                string dateInUS = month + "/" + day + "/" + year;
-
-                itemToCreate.DateCreated = dateInUS;
-            }
-            catch { }
-
-
+            DateFromNZToSQL(itemToCreate);
             try
             {
-                //validation enforced on model (as an override on Massive)
-                var expandoNewlyCreatedTrick = _tricksTable.Insert(itemToCreate);
-
-                //pass back newly created trick so that tests can make sure data is right
-                TempData["newlyCreatedThing"] = expandoNewlyCreatedTrick;
+                 _tricksTable.Insert(itemToCreate);
                 return RedirectToAction("Index");
             }
             catch (Exception ex)
             {
                 TempData["Error"] = "There was an error adding the trick: "+ ex.Message;
+                DateFromSQLToNZ(itemToCreate);
                 return View(itemToCreate);
             }
+        }
+
+        private static void DateFromNZToSQL(dynamic itemToCreate) {
+            try {
+                //convert nz to sql date
+                //nz is dd/mm/yyyy   sql is yyyy-mm-dd
+                string x = itemToCreate.DateCreated;
+                string[] bits = x.Split('/');
+                var day = bits[0];
+                var month = bits[1];
+                var year = bits[2];
+                var sqlDate = year + "-" + month + "-" + day;
+                itemToCreate.DateCreated = sqlDate;
+            }
+            catch { }
+        }
+
+        private static void DateFromSQLToNZ(dynamic itemToCreate) {
+            try {
+                string x = itemToCreate.DateCreated;
+                string[] bits = x.Split('-');
+                var day = bits[2];
+                var month = bits[1];
+                var year = bits[0];
+                var nzDate = day + "/" + month + "/" + year;
+                itemToCreate.DateCreated = nzDate;
+            }
+            catch { }
         }
 
         [Authorize(Roles = "Administrator")]
@@ -86,21 +95,7 @@ namespace PubTricks.Web.Areas.Admin.Controllers
         {
             var itemToUpdate = _tricksTable.CreateFrom(collection);
 
-            //convert from NZ to US dateformat
-            //if DateCreated actually exists coming in
-            //if not it will be caught in validation and set to now
-            try {
-                string t = itemToUpdate.DateCreated;
-                string[] words = t.Split('/');
-                string day = words[0];
-                string month = words[1];
-                string year = words[2];
-                string dateInUS = month + "/" + day + "/" + year;
-
-                itemToUpdate.DateCreated = dateInUS;
-            }
-            catch { }
-
+            DateFromNZToSQL(itemToUpdate);
             try
             {
                 _tricksTable.Update(itemToUpdate, id); 
@@ -109,17 +104,21 @@ namespace PubTricks.Web.Areas.Admin.Controllers
             catch (Exception ex)
             {
                 TempData["Error"] = "There was an error editing this trick: " + ex.Message;
+                DateFromSQLToNZ(itemToUpdate);
                 return View(itemToUpdate);
             }
         }
 
+        [Authorize(Roles = "Administrator")]
         public ActionResult Delete(int id)
         {
-            return View();
+            var model = _tricksTable.Get(ID: id);
+            return View(model);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator")]
         public ActionResult Delete(int id, FormCollection collection)
         {
             try
