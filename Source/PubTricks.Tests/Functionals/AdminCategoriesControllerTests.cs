@@ -55,8 +55,8 @@ namespace PubTricks.Tests.Functionals {
             var result = controller.Create() as ViewResult;
             dynamic x = result.ViewData.Model;
 
-            var dropDownListOfTricks = x.DropDownListOfTricks;
-            var countOfAllTricks = Enumerable.Count(dropDownListOfTricks);
+            var dropDownListOfTricksMulti = x.DropDownListOfTricksMulti;
+            var countOfAllTricks = Enumerable.Count(dropDownListOfTricksMulti);
 
             Assert.AreEqual(3, countOfAllTricks);
         }
@@ -100,34 +100,35 @@ namespace PubTricks.Tests.Functionals {
 
             dynamic x = result.ViewData.Model;
 
-            var dropDownListOfTricks = x.DropDownListOfTricks;
-            var count = Enumerable.Count(dropDownListOfTricks);
+            var dropDownListOfTricksMulti = x.DropDownListOfTricksMulti;
+            var count = Enumerable.Count(dropDownListOfTricksMulti);
             Assert.AreEqual(3, count);
         }
 
         [Test]
         public void edit_category_page_should_save_with_multiple_tricks_selected_in_dropdown() {
-            int idOfFunnyCategory = PopulateDBWithTestData().IDOfFunnyCategory;
-            var controller = new CategoriesController();
-            var model = _tricksTable.Get(Name: "Pen Trick");
-            int idOfPenTrick = model.ID;
-            var formCollection = new FormCollection() {
-                                                        { "ID", idOfPenTrick.ToString() },
-                                                        { "Name", "Pen Trick" },
-                                                        { "Description", "test descrxxx"},
-                                                        { "Votes", "2" },
-                                                        { "VideoURL", "" },
-                                                        { "DateCreated", "15/10/2011"}
-                                                      };
-            var result = controller.Edit(idOfPenTrick, formCollection) as ViewResult;
-            string errorMessage = GetErrorMessageIfThereIsOne(result);
-            Assert.IsEmpty(errorMessage);
+            this.IsPending();
+            //int idOfFunnyCategory = PopulateDBWithTestData().IDOfFunnyCategory;
+            //var controller = new CategoriesController();
+            //var model = _tricksTable.Get(Name: "Pen Trick");
+            //int idOfPenTrick = model.ID;
+            //var formCollection = new FormCollection() {
+            //                                            { "ID", idOfPenTrick.ToString() },
+            //                                            { "Name", "Pen Trick" },
+            //                                            { "Description", "test descrxxx"},
+            //                                            { "Votes", "2" },
+            //                                            { "VideoURL", "" },
+            //                                            { "DateCreated", "15/10/2011"}
+            //                                          };
+            //var result = controller.Edit(idOfPenTrick, formCollection) as ViewResult;
+            //string errorMessage = GetErrorMessageIfThereIsOne(result);
+            //Assert.IsEmpty(errorMessage);
 
-            var modelJustSaved = _tricksTable.Get(Name: "Pen Trick");
-            DateTime dateCreatedAsDateTime = Convert.ToDateTime(modelJustSaved.DateCreated);
-            var dateCreatedAsDateTimeShortFormat = dateCreatedAsDateTime.ToString("dd/MM/yyyy HH:mm");
+            //var modelJustSaved = _tricksTable.Get(Name: "Pen Trick");
+            //DateTime dateCreatedAsDateTime = Convert.ToDateTime(modelJustSaved.DateCreated);
+            //var dateCreatedAsDateTimeShortFormat = dateCreatedAsDateTime.ToString("dd/MM/yyyy HH:mm");
 
-            Assert.AreEqual("15/10/2011 00:00", dateCreatedAsDateTimeShortFormat);
+            //Assert.AreEqual("15/10/2011 00:00", dateCreatedAsDateTimeShortFormat);
         }
 
         private static string GetErrorMessageIfThereIsOne(ViewResult result) {

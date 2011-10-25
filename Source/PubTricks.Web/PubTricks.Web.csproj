@@ -121,6 +121,7 @@
     <Compile Include="Models\Quotes.cs" />
     <Compile Include="Models\Tricks.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Content Include="Readme.txt" />
     <Compile Include="WebRole.cs" />
   </ItemGroup>
   <ItemGroup>

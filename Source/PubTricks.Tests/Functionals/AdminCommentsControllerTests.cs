@@ -68,7 +68,7 @@ namespace PubTricks.Tests.Functionals {
 
             var dropDownListOfTricks = x.DropDownListOfTricks;
             var count = Enumerable.Count(dropDownListOfTricks);
-            Assert.AreEqual(2, count);
+            Assert.AreEqual(3, count);
         }
        
     }
